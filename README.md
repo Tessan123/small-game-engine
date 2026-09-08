@@ -88,24 +88,24 @@ The exact architecture will evolve as the project develops.
 
 ## 1. 📦 Project Setup
 
-* [🟢] Set up CMake
-* [🟢] Configure C++ project
-* [🟢] Set up Git repository
-* [🟢] Create engine project structure
-* [🟢] Configure Debug/Release builds
-* [🟢] Create initial executable
+* 🟢 Set up CMake
+* 🟢 Configure C++ project
+* 🟢 Set up Git repository
+* 🟢 Create engine project structure
+* 🟢 Configure Debug/Release builds
+* 🟢 Create initial executable
 
 ---
 
 ## 2. 🪟 Window & Application
 
-* [ ] Create application class
-* [ ] Create window
-* [ ] Initialize OpenGL
-* [ ] Implement game loop
-* [ ] Implement delta time
-* [ ] Implement FPS tracking
-* [ ] Separate engine and application code
+* 🟢 Create application class
+* 🟢 Create window
+* 🟢 Initialize OpenGL
+* 🟢 Implement game loop
+* 🟢 Implement delta time
+* 🟢 Implement FPS tracking
+* 🟢 Separate engine and application code
 
 Basic structure:
 

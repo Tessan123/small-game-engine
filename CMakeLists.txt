@@ -16,4 +16,16 @@ endif()
 
 add_executable(MyEngine
     Sandbox/main.cpp
+    Engine/Core/application.cpp
+)
+
+target_include_directories(MyEngine PRIVATE
+    Engine/Core
+)
+
+find_package(glfw3 REQUIRED)
+
+target_link_libraries(MyEngine PRIVATE
+    glfw
+    opengl32
 )
