@@ -49,11 +49,11 @@ These will only be introduced if they provide meaningful value:
 * **stb_image** — image loading
 * **Dear ImGui** — editor/debug interface
 
-Libraries such as physics engines, mathematics libraries and ECS frameworks are intentionally avoided in order to implement these systems ourselves.
+Libraries such as physics engines, mathematics libraries and ECS frameworks are intentionally avoided in order to implement these systems myself.
 
 ---
 
-# 🧠 Build It Yourself
+# 🧠 Build It Myself
 
 Instead of relying on existing engine components, the project aims to implement the following systems from scratch:
 
