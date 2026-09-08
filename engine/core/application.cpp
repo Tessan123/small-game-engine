@@ -1,9 +1,10 @@
 #include "application.h"
+#include "input.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
 Application::Application()
-    : running(true), deltaTime(0.0f), fps(0.0f), fpsTimer(0.0f), frameCount(0)
+    : running(true), deltaTime(0.0f), fps(0.0f), fpsTimer(0.0f), frameCount(0), positionX(0.0f), positionY(0.0f)
 {
 
     if (!glfwInit())
@@ -11,6 +12,17 @@ Application::Application()
         std::cerr << "failed to initialize GLFW" << std::endl;
         return;
     }
+
+    Input::Bind(Action::MoveForvard, Key::W);
+    Input::Bind(Action::MoveBackward, Key::S);
+    Input::Bind(Action::MoveLeft, Key::A);
+    Input::Bind(Action::MoveRight, Key::D);
+
+    Input::Bind(Action::Shoot, MouseButton::Left);
+    Input::Bind(Action::Aim, MouseButton::Right);
+    Input::Bind(Action::Exit, Key::Escape);
+
+    Input::Bind(Action::Shoot, Key::S);
 
     window = glfwCreateWindow(
         800,
@@ -72,7 +84,9 @@ void Application::ProcessInput()
 {
     glfwPollEvents();
 
-    if (glfwWindowShouldClose(window))
+    Input::Update(window);
+
+    if (Input::WasActionPressed(Action::Exit))
     {
         running = false;
     }
@@ -80,7 +94,30 @@ void Application::ProcessInput()
 
 void Application::Update()
 {
-    // std::cout << deltaTime << std::endl;
+    const float speed = 200.0f;
+
+    if (Input::IsActionDown(Action::MoveForvard))
+    {
+        positionY += speed * deltaTime;
+    }
+
+    if (Input::IsActionDown(Action::MoveBackward))
+    {
+        positionY -= speed * deltaTime;
+    }
+    if (Input::IsActionDown(Action::MoveLeft))
+    {
+        positionX -= speed * deltaTime;
+    }
+    if (Input::IsActionDown(Action::MoveRight))
+    {
+        positionX += speed * deltaTime;
+    }
+    if (Input::WasActionPressed(Action::Shoot))
+    {
+        std::cout << "Shoot!" << std::endl;
+    }
+    // std::cout << "Postition: " << positionX << ", " << positionY << std::endl;
 }
 
 void Application::Render()

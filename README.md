@@ -12,17 +12,17 @@ The primary goal of this project is not to build the most feature-rich engine po
 
 The main goals of the project are to explore:
 
-* C++ and systems programming
-* Game engine architecture
-* Graphics programming
-* Linear algebra
-* Memory management
-* Entity Component Systems
-* Physics
-* Resource management
-* Multithreading
-* Performance optimization
-* Software architecture
+- C++ and systems programming
+- Game engine architecture
+- Graphics programming
+- Linear algebra
+- Memory management
+- Entity Component Systems
+- Physics
+- Resource management
+- Multithreading
+- Performance optimization
+- Software architecture
 
 The philosophy behind the project is:
 
@@ -38,16 +38,16 @@ The engine is intentionally designed to have **as few external dependencies as p
 
 ### Core
 
-* **C++ Standard Library**
-* **OpenGL** — graphics API
-* **GLFW** — window creation, OpenGL context and basic input
+- **C++ Standard Library**
+- **OpenGL** — graphics API
+- **GLFW** — window creation, OpenGL context and basic input
 
 ### Potential future dependencies
 
 These will only be introduced if they provide meaningful value:
 
-* **stb_image** — image loading
-* **Dear ImGui** — editor/debug interface
+- **stb_image** — image loading
+- **Dear ImGui** — editor/debug interface
 
 Libraries such as physics engines, mathematics libraries and ECS frameworks are intentionally avoided in order to implement these systems myself.
 
@@ -88,24 +88,24 @@ The exact architecture will evolve as the project develops.
 
 ## 1. 📦 Project Setup
 
-* 🟢 Set up CMake
-* 🟢 Configure C++ project
-* 🟢 Set up Git repository
-* 🟢 Create engine project structure
-* 🟢 Configure Debug/Release builds
-* 🟢 Create initial executable
+- 🟢 Set up CMake
+- 🟢 Configure C++ project
+- 🟢 Set up Git repository
+- 🟢 Create engine project structure
+- 🟢 Configure Debug/Release builds
+- 🟢 Create initial executable
 
 ---
 
 ## 2. 🪟 Window & Application
 
-* 🟢 Create application class
-* 🟢 Create window
-* 🟢 Initialize OpenGL
-* 🟢 Implement game loop
-* 🟢 Implement delta time
-* 🟢 Implement FPS tracking
-* 🟢 Separate engine and application code
+- 🟢 Create application class
+- 🟢 Create window
+- 🟢 Initialize OpenGL
+- 🟢 Implement game loop
+- 🟢 Implement delta time
+- 🟢 Implement FPS tracking
+- 🟢 Separate engine and application code
 
 Basic structure:
 
@@ -122,13 +122,13 @@ while (running)
 
 ## 3. 🎮 Input System
 
-* [ ] Keyboard input
-* [ ] Mouse input
-* [ ] Mouse movement
-* [ ] Mouse buttons
-* [ ] Key states
-* [ ] Input abstraction
-* [ ] Configurable key bindings
+- 🟢 Keyboard input
+- 🟢 Mouse input
+- 🟢 Mouse movement
+- 🟢 Mouse buttons
+- 🟢 Key states
+- 🟢 Input abstraction
+- 🟢 Configurable key bindings
 
 The goal is to avoid coupling game code directly to GLFW.
 
@@ -140,34 +140,34 @@ Implement the mathematical foundations required by the engine.
 
 ### Vectors
 
-* [ ] `Vec2`
-* [ ] `Vec3`
-* [ ] `Vec4`
-* [ ] Addition/subtraction
-* [ ] Scalar multiplication
-* [ ] Dot product
-* [ ] Cross product
-* [ ] Length
-* [ ] Normalization
+- [ ] `Vec2`
+- [ ] `Vec3`
+- [ ] `Vec4`
+- [ ] Addition/subtraction
+- [ ] Scalar multiplication
+- [ ] Dot product
+- [ ] Cross product
+- [ ] Length
+- [ ] Normalization
 
 ### Matrices
 
-* [ ] `Mat2`
-* [ ] `Mat3`
-* [ ] `Mat4`
-* [ ] Matrix multiplication
-* [ ] Translation
-* [ ] Rotation
-* [ ] Scaling
-* [ ] Projection
-* [ ] View matrices
+- [ ] `Mat2`
+- [ ] `Mat3`
+- [ ] `Mat4`
+- [ ] Matrix multiplication
+- [ ] Translation
+- [ ] Rotation
+- [ ] Scaling
+- [ ] Projection
+- [ ] View matrices
 
 ### Transformations
 
-* [ ] Position
-* [ ] Rotation
-* [ ] Scale
-* [ ] Local/world transformations
+- [ ] Position
+- [ ] Rotation
+- [ ] Scale
+- [ ] Local/world transformations
 
 No external mathematics library will be used.
 
@@ -177,18 +177,18 @@ No external mathematics library will be used.
 
 Build a rendering system directly on top of OpenGL.
 
-* [ ] OpenGL renderer
-* [ ] Vertex buffers
-* [ ] Index buffers
-* [ ] Vertex arrays
-* [ ] Shader system
-* [ ] Shader compilation
-* [ ] Shader error handling
-* [ ] Texture system
-* [ ] Camera
-* [ ] 2D rendering
-* [ ] 3D rendering
-* [ ] Lighting
+- [ ] OpenGL renderer
+- [ ] Vertex buffers
+- [ ] Index buffers
+- [ ] Vertex arrays
+- [ ] Shader system
+- [ ] Shader compilation
+- [ ] Shader error handling
+- [ ] Texture system
+- [ ] Camera
+- [ ] 2D rendering
+- [ ] 3D rendering
+- [ ] Lighting
 
 Initial rendering progression:
 
@@ -214,15 +214,15 @@ OpenGL Context
 
 Create the foundation for game objects.
 
-* [ ] Entity management
-* [ ] Component storage
-* [ ] Component lifecycle
-* [ ] Transform component
-* [ ] Render component
-* [ ] Camera component
-* [ ] Physics component
-* [ ] Entity IDs
-* [ ] Entity creation/deletion
+- [ ] Entity management
+- [ ] Component storage
+- [ ] Component lifecycle
+- [ ] Transform component
+- [ ] Render component
+- [ ] Camera component
+- [ ] Physics component
+- [ ] Entity IDs
+- [ ] Entity creation/deletion
 
 Example:
 
@@ -240,13 +240,13 @@ The ECS architecture will be designed and implemented as part of the project rat
 
 ## 7. 🌍 Scene System
 
-* [ ] Scene creation
-* [ ] Entity creation/deletion
-* [ ] Scene management
-* [ ] Parent/child relationships
-* [ ] Entity hierarchy
-* [ ] Scene loading
-* [ ] Scene saving
+- [ ] Scene creation
+- [ ] Entity creation/deletion
+- [ ] Scene management
+- [ ] Parent/child relationships
+- [ ] Entity hierarchy
+- [ ] Scene loading
+- [ ] Scene saving
 
 Example:
 
@@ -263,14 +263,14 @@ auto enemy  = scene.CreateEntity("Enemy");
 
 Build a custom resource management system.
 
-* [ ] Texture loading
-* [ ] Shader loading
-* [ ] Model loading
-* [ ] Asset manager
-* [ ] Asset caching
-* [ ] Resource lifetime management
-* [ ] Asset handles/IDs
-* [ ] Error handling
+- [ ] Texture loading
+- [ ] Shader loading
+- [ ] Model loading
+- [ ] Asset manager
+- [ ] Asset caching
+- [ ] Resource lifetime management
+- [ ] Asset handles/IDs
+- [ ] Error handling
 
 The goal is to understand how engines manage resources rather than simply loading files directly whenever they are needed.
 
@@ -280,16 +280,16 @@ The goal is to understand how engines manage resources rather than simply loadin
 
 Implement a basic physics system from scratch.
 
-* [ ] Velocity
-* [ ] Acceleration
-* [ ] Gravity
-* [ ] Rigid bodies
-* [ ] Collision detection
-* [ ] Collision response
-* [ ] AABB collision
-* [ ] Physics update loop
-* [ ] Broad-phase collision detection
-* [ ] Basic constraints
+- [ ] Velocity
+- [ ] Acceleration
+- [ ] Gravity
+- [ ] Rigid bodies
+- [ ] Collision detection
+- [ ] Collision response
+- [ ] AABB collision
+- [ ] Physics update loop
+- [ ] Broad-phase collision detection
+- [ ] Basic constraints
 
 Initial physics pipeline:
 
@@ -315,12 +315,12 @@ No external physics engine will be used initially.
 
 ## 10. 🔊 Audio
 
-* [ ] Audio abstraction
-* [ ] Sound effects
-* [ ] Background music
-* [ ] Audio manager
-* [ ] Volume control
-* [ ] 3D positional audio
+- [ ] Audio abstraction
+- [ ] Sound effects
+- [ ] Background music
+- [ ] Audio manager
+- [ ] Volume control
+- [ ] 3D positional audio
 
 Audio libraries may be introduced later if implementing a complete audio backend is outside the scope of the project.
 
@@ -328,14 +328,14 @@ Audio libraries may be introduced later if implementing a complete audio backend
 
 ## 11. 🖥️ Debugging & Profiling
 
-* [ ] Logging system
-* [ ] FPS counter
-* [ ] Frame time
-* [ ] Memory statistics
-* [ ] Entity statistics
-* [ ] Debug rendering
-* [ ] Performance profiler
-* [ ] Runtime statistics
+- [ ] Logging system
+- [ ] FPS counter
+- [ ] Frame time
+- [ ] Memory statistics
+- [ ] Entity statistics
+- [ ] Debug rendering
+- [ ] Performance profiler
+- [ ] Runtime statistics
 
 The goal is to make the engine observable while developing it.
 
@@ -345,15 +345,15 @@ The goal is to make the engine observable while developing it.
 
 Create an editor for working with the engine.
 
-* [ ] Scene view
-* [ ] Entity hierarchy
-* [ ] Entity inspector
-* [ ] Transform editing
-* [ ] Asset browser
-* [ ] Play
-* [ ] Pause
-* [ ] Stop
-* [ ] Scene saving/loading
+- [ ] Scene view
+- [ ] Entity hierarchy
+- [ ] Entity inspector
+- [ ] Transform editing
+- [ ] Asset browser
+- [ ] Play
+- [ ] Pause
+- [ ] Stop
+- [ ] Scene saving/loading
 
 Long-term goal:
 
@@ -379,13 +379,13 @@ Long-term goal:
 
 Create a generic event system for communication between engine systems.
 
-* [ ] Event base class
-* [ ] Event types
-* [ ] Event dispatcher
-* [ ] Input events
-* [ ] Window events
-* [ ] Entity events
-* [ ] Custom game events
+- [ ] Event base class
+- [ ] Event types
+- [ ] Event dispatcher
+- [ ] Input events
+- [ ] Window events
+- [ ] Entity events
+- [ ] Custom game events
 
 Example:
 
@@ -406,14 +406,14 @@ dispatcher.Subscribe<KeyPressedEvent>(
 
 Explore concurrency and parallelism.
 
-* [ ] Thread abstraction
-* [ ] Thread pool
-* [ ] Job system
-* [ ] Task scheduling
-* [ ] Worker threads
-* [ ] Synchronization
-* [ ] Locking strategies
-* [ ] Parallel asset loading
+- [ ] Thread abstraction
+- [ ] Thread pool
+- [ ] Job system
+- [ ] Task scheduling
+- [ ] Worker threads
+- [ ] Synchronization
+- [ ] Locking strategies
+- [ ] Parallel asset loading
 
 The goal is to understand how game engines distribute work across CPU cores.
 
@@ -423,16 +423,16 @@ The goal is to understand how game engines distribute work across CPU cores.
 
 Optimization will be introduced after the systems are functional.
 
-* [ ] Profiling
-* [ ] Memory optimization
-* [ ] Rendering optimization
-* [ ] Batch rendering
-* [ ] Frustum culling
-* [ ] Resource caching
-* [ ] Data-oriented design
-* [ ] Multithreading
-* [ ] Job system
-* [ ] Reduce unnecessary allocations
+- [ ] Profiling
+- [ ] Memory optimization
+- [ ] Rendering optimization
+- [ ] Batch rendering
+- [ ] Frustum culling
+- [ ] Resource caching
+- [ ] Data-oriented design
+- [ ] Multithreading
+- [ ] Job system
+- [ ] Reduce unnecessary allocations
 
 > **Measure first, optimize second.**
 
@@ -442,16 +442,16 @@ Optimization will be introduced after the systems are functional.
 
 Build a small game using the engine.
 
-* [ ] Player
-* [ ] Enemies
-* [ ] Player movement
-* [ ] Gameplay mechanics
-* [ ] Physics
-* [ ] Audio
-* [ ] UI
-* [ ] Main menu
-* [ ] Multiple scenes
-* [ ] Win/lose conditions
+- [ ] Player
+- [ ] Enemies
+- [ ] Player movement
+- [ ] Gameplay mechanics
+- [ ] Physics
+- [ ] Audio
+- [ ] UI
+- [ ] Main menu
+- [ ] Multiple scenes
+- [ ] Win/lose conditions
 
 The demo game will serve as a real-world test of the engine's architecture.
 
@@ -459,16 +459,16 @@ The demo game will serve as a real-world test of the engine's architecture.
 
 ## 17. ✨ Polish & Release
 
-* [ ] Refactor architecture
-* [ ] Clean up code
-* [ ] Improve documentation
-* [ ] API documentation
-* [ ] Example projects
-* [ ] Windows build
-* [ ] Linux build
-* [ ] Release build
-* [ ] Versioning
-* [ ] First stable release
+- [ ] Refactor architecture
+- [ ] Clean up code
+- [ ] Improve documentation
+- [ ] API documentation
+- [ ] Example projects
+- [ ] Windows build
+- [ ] Linux build
+- [ ] Release build
+- [ ] Versioning
+- [ ] First stable release
 
 ---
 

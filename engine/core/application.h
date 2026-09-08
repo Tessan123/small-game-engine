@@ -21,4 +21,7 @@ private:
     float fps;
     float fpsTimer;
     int frameCount;
+
+    float positionX;
+    float positionY;
 };
