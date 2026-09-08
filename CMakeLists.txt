@@ -20,6 +20,7 @@ add_executable(MyEngine
     Engine/Input/input.cpp
     Engine/Math/vec2.cpp
     Engine/Math/vec3.cpp
+    Engine/Math/vec4.cpp
 )
 
 target_include_directories(MyEngine PRIVATE
