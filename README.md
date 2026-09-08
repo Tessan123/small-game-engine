@@ -88,12 +88,12 @@ The exact architecture will evolve as the project develops.
 
 ## 1. 📦 Project Setup
 
-* [ ] Set up CMake
-* [ ] Configure C++ project
-* [ ] Set up Git repository
-* [ ] Create engine project structure
-* [ ] Configure Debug/Release builds
-* [ ] Create initial executable
+* [🟢] Set up CMake
+* [🟢] Configure C++ project
+* [🟢] Set up Git repository
+* [🟢] Create engine project structure
+* [🟢] Configure Debug/Release builds
+* [🟢] Create initial executable
 
 ---
 
