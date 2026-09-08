@@ -22,8 +22,6 @@ Application::Application()
     Input::Bind(Action::Aim, MouseButton::Right);
     Input::Bind(Action::Exit, Key::Escape);
 
-    Input::Bind(Action::Shoot, Key::S);
-
     window = glfwCreateWindow(
         800,
         600,

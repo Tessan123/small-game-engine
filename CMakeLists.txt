@@ -18,11 +18,13 @@ add_executable(MyEngine
     Sandbox/main.cpp
     Engine/Core/application.cpp
     Engine/Input/input.cpp
+    Engine/Math/vec2.cpp
 )
 
 target_include_directories(MyEngine PRIVATE
     Engine/Core
     Engine/Input
+    Engine/Math
 )
 
 find_package(glfw3 REQUIRED)
