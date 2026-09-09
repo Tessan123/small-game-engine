@@ -187,3 +187,28 @@ Mat4 Mat4::Scale(const Vec3 &scale)
         0.0f, 0.0f, scale.z, 0.0f,
         0.0f, 0.0f, 0.f, 1.0f);
 }
+
+Mat4 Mat4::Perspective(float fovRadians, float aspect, float nearPlane, float farPlane)
+{
+    float f = 1.0f / std::tan(fovRadians / 2.0f);
+
+    return Mat4(
+        f / aspect, 0.0f, 0.0f, 0.0f,
+        0.0f, f, 0.0f, 0.0f,
+        0.0f, 0.0f, (farPlane + nearPlane) / (nearPlane - farPlane),
+        (2.0f * farPlane * nearPlane) / (nearPlane - farPlane),
+        0.0f, 0.0f, -1.0f, 0.0f);
+}
+
+Mat4 Mat4::LookAt(const Vec3 &position, const Vec3 &target, const Vec3 &up)
+{
+    Vec3 forward = (target - position).Normalize();
+    Vec3 right = up.Cross(forward).Normalize();
+    Vec3 cameraUp = forward.Cross(right);
+
+    return Mat4(
+        right.x, right.y, right.z, -right.Dot(position),
+        cameraUp.x, cameraUp.y, cameraUp.z, -cameraUp.Dot(position),
+        -forward.x, -forward.y, -forward.z, forward.Dot(position),
+        0.0f, 0.0f, 0.0f, 1.0f);
+}

@@ -158,9 +158,9 @@ Implement the mathematical foundations required by the engine.
 - 🟢 Matrix multiplication
 - 🟢 Translation
 - 🟢 Rotation
-- [ ] Scaling
-- [ ] Projection
-- [ ] View matrices
+- 🟢 Scaling
+- 🟢 Projection
+- 🟢 View matrices
 
 ### Transformations
 

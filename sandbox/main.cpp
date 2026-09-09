@@ -14,19 +14,29 @@ int main()
     // Application app;
     // app.run();
 
-    Vec3 scale(2.0f, 3.0f, 4.0f);
+    Vec3 cameraPosition(0.0f, 0.0f, 5.0f);
+    Vec3 target(0.0f, 0.0f, 0.0f);
+    Vec3 up(0.0f, 1.0f, 0.0f);
 
-    Mat4 scaling = Mat4::Scale(scale);
+    Mat4 view = Mat4::LookAt(
+        cameraPosition,
+        target,
+        up);
 
-    Vec4 point(2.0f, 2.0f, 2.0f, 2.0f);
+    Vec4 point(
+        0.0f,
+        0.0f,
+        0.0f,
+        1.0f);
 
-    Vec4 result = scaling * point;
+    Vec4 result = view * point;
 
     std::cout << "Result: "
               << result.x << ", "
               << result.y << ", "
               << result.z << ", "
-              << result.w << std::endl;
+              << result.w
+              << std::endl;
 
     return 0;
 }
