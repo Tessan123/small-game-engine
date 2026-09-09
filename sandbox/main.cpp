@@ -2,6 +2,8 @@
 #include "vec2.h"
 #include "vec3.h"
 #include "vec4.h"
+#include "mat2.h"
+#include "mat3.h"
 #include "application.h"
 
 int main()
@@ -10,24 +12,18 @@ int main()
     // Application app;
     // app.run();
 
-    Vec4 a(1.0f, 2.0f, 3.0f, 4.0f);
-    Vec4 b(2.0f, 3.0f, 4.0f, 5.0f);
+    Mat3 matrix(
+        1.0f, 2.0f, 3.0f,
+        4.0f, 5.0f, 6.0f,
+        7.0f, 8.0f, 9.0f);
 
-    Vec4 sum = a + b;
+    Vec3 vector(1.0f, 2.0f, 3.0f);
 
-    std::cout << "Sum: "
-              << sum.x << ", "
-              << sum.y << ", "
-              << sum.z << ", "
-              << sum.w
-              << std::endl;
+    Vec3 result = matrix * vector;
 
-    std::cout << "Length: "
-              << a.Length()
-              << std::endl;
-
-    std::cout << "Dot: "
-              << a.Dot(b)
+    std::cout << result.x << ", "
+              << result.y << ", "
+              << result.z
               << std::endl;
 
     return 0;
