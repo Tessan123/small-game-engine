@@ -156,8 +156,8 @@ Implement the mathematical foundations required by the engine.
 - 🟢 `Mat3`
 - 🟢 `Mat4`
 - 🟢 Matrix multiplication
-- [ ] Translation
-- [ ] Rotation
+- 🟢 Translation
+- 🟢 Rotation
 - [ ] Scaling
 - [ ] Projection
 - [ ] View matrices

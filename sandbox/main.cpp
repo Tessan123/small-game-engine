@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cmath>
 #include "vec2.h"
 #include "vec3.h"
 #include "vec4.h"
@@ -13,13 +14,13 @@ int main()
     // Application app;
     // app.run();
 
-    Vec3 translation(5.0f, 2.0f, 3.0f);
+    float angle = 3.14159265359f / 2.0f;
 
-    Mat4 matrix = Mat4::Translation(translation);
+    Mat4 rotation = Mat4::RotationZ(angle);
 
-    Vec4 point(1.0f, 1.0f, 1.0f, 1.0f);
+    Vec4 point(1.0f, 0.0f, 0.0f, 1.0f);
 
-    Vec4 result = matrix * point;
+    Vec4 result = rotation * point;
 
     std::cout << "Result: "
               << result.x << ", "

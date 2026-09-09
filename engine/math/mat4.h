@@ -17,6 +17,10 @@ public:
 
     static Mat4 Translation(const Vec3 &translation);
 
+    static Mat4 RotationX(float radians);
+    static Mat4 RotationY(float radians);
+    static Mat4 RotationZ(float radians);
+
     Mat4 operator+(const Mat4 &other) const;
     Mat4 operator-(const Mat4 &other) const;
 

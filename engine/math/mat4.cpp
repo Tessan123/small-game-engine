@@ -2,6 +2,7 @@
 #include "vec4.h"
 #include "vec3.h"
 #include <xmmintrin.h>
+#include <cmath>
 
 Mat4::Mat4()
     : m{
@@ -140,4 +141,42 @@ Mat4 Mat4::Translation(const Vec3 &translation)
         0.0f, 1.0f, 0.0f, translation.y,
         0.0f, 0.0f, 1.0f, translation.z,
         0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+Mat4 Mat4::RotationX(float radians)
+{
+    float c = std::cos(radians);
+    float s = std::sin(radians);
+
+    return Mat4(
+        1.0f, 0.0f, 0.0f, 0.0f,
+        0.0f, c, -s, 0.0f,
+        0.0f, s, c, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+Mat4 Mat4::RotationY(float radians)
+{
+    float c = std::cos(radians);
+    float s = std::sin(radians);
+
+    return Mat4(
+           c, 0.0f,    s, 0.0f,
+        0.0f, 1.0f, 0.0f, 0.0f,
+          -s, 0.0f,    c, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    );
+}
+
+Mat4 Mat4::RotationZ(float radians)
+{
+    float c = std::cos(radians);
+    float s = std::sin(radians);
+
+    return Mat4(
+           c,   -s, 0.0f, 0.0f,
+           s,    c, 0.0f, 0.0f,
+        0.0f, 0.0f, 1.0f, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f
+    );
 }
