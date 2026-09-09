@@ -14,13 +14,13 @@ int main()
     // Application app;
     // app.run();
 
-    float angle = 3.14159265359f / 2.0f;
+    Vec3 scale(2.0f, 3.0f, 4.0f);
 
-    Mat4 rotation = Mat4::RotationZ(angle);
+    Mat4 scaling = Mat4::Scale(scale);
 
-    Vec4 point(1.0f, 0.0f, 0.0f, 1.0f);
+    Vec4 point(2.0f, 2.0f, 2.0f, 2.0f);
 
-    Vec4 result = rotation * point;
+    Vec4 result = scaling * point;
 
     std::cout << "Result: "
               << result.x << ", "

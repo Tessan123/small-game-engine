@@ -21,6 +21,8 @@ public:
     static Mat4 RotationY(float radians);
     static Mat4 RotationZ(float radians);
 
+    static Mat4 Scale(const Vec3 &scale);
+
     Mat4 operator+(const Mat4 &other) const;
     Mat4 operator-(const Mat4 &other) const;
 

@@ -161,11 +161,10 @@ Mat4 Mat4::RotationY(float radians)
     float s = std::sin(radians);
 
     return Mat4(
-           c, 0.0f,    s, 0.0f,
+        c, 0.0f, s, 0.0f,
         0.0f, 1.0f, 0.0f, 0.0f,
-          -s, 0.0f,    c, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
-    );
+        -s, 0.0f, c, 0.0f,
+        0.0f, 0.0f, 0.0f, 1.0f);
 }
 
 Mat4 Mat4::RotationZ(float radians)
@@ -174,9 +173,17 @@ Mat4 Mat4::RotationZ(float radians)
     float s = std::sin(radians);
 
     return Mat4(
-           c,   -s, 0.0f, 0.0f,
-           s,    c, 0.0f, 0.0f,
+        c, -s, 0.0f, 0.0f,
+        s, c, 0.0f, 0.0f,
         0.0f, 0.0f, 1.0f, 0.0f,
-        0.0f, 0.0f, 0.0f, 1.0f
-    );
+        0.0f, 0.0f, 0.0f, 1.0f);
+}
+
+Mat4 Mat4::Scale(const Vec3 &scale)
+{
+    return Mat4(
+        scale.x, 0.0f, 0.0f, 0.0f,
+        0.0f, scale.y, 0.0f, 0.0f,
+        0.0f, 0.0f, scale.z, 0.0f,
+        0.0f, 0.0f, 0.f, 1.0f);
 }
