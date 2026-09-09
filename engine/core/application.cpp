@@ -164,6 +164,7 @@ void Application::Update()
     {
         std::cout << "Shoot!" << std::endl;
     }
+    transform.position.x = 0.5f;
     // std::cout << "Postition: " << positionX << ", " << positionY << std::endl;
 }
 
@@ -172,9 +173,18 @@ void Application::Render()
     Renderer::Clear();
 
     shader->Bind();
+
+    Mat4 model = transform.GetModelMatrix();
+
+    shader->SetMat4("u_Model", model);
+
     vertexArray->Bind();
 
-    glDrawElements(GL_TRIANGLES, indexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+    glDrawElements(
+        GL_TRIANGLES,
+        indexBuffer->GetCount(),
+        GL_UNSIGNED_INT,
+        nullptr);
 
     vertexArray->Unbind();
 

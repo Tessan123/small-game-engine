@@ -6,6 +6,7 @@ class GLFWwindow;
 #include "vertexBuffer.h"
 #include "indexBuffer.h"
 #include "shader.h"
+#include "transform.h"
 
 class Application
 {
@@ -30,6 +31,8 @@ private:
 
     float positionX;
     float positionY;
+
+    Transform transform;
 
     VertexArray *vertexArray;
     VertexBuffer *vertexBuffer;

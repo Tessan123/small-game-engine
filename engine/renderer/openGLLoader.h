@@ -59,6 +59,11 @@ using GLGetProgramivProc = void (*)(GLuint, GLenum, GLint *);
 
 using GLGetProgramInfoLogProc = void (*)(GLuint, GLsizei, GLsizei *, char *);
 
+using GLGetUniformLocationProc = GLint (*)(GLuint, const char *);
+
+using GLUniform1fProc = void (*)(GLint, GLfloat);
+
+using GLUniformMatrix4fvProc = void (*)(GLint, GLsizei, GLboolean, const GLfloat *);
 
 extern GLGenBuffersProc glGenBuffers;
 extern GLBindBufferProc glBindBuffer;
@@ -86,5 +91,8 @@ extern GLGetShaderInfoLogProc glGetShaderInfoLog;
 extern GLGetProgramivProc glGetProgramiv;
 extern GLGetProgramInfoLogProc glGetProgramInfoLog;
 
+extern GLGetUniformLocationProc glGetUniformLocation;
+extern GLUniform1fProc glUniform1f;
+extern GLUniformMatrix4fvProc glUniformMatrix4fv;
 
 bool InitializeOpenGLFunctions();

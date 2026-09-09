@@ -27,6 +27,10 @@ GLGetShaderInfoLogProc glGetShaderInfoLog = nullptr;
 GLGetProgramivProc glGetProgramiv = nullptr;
 GLGetProgramInfoLogProc glGetProgramInfoLog = nullptr;
 
+GLGetUniformLocationProc glGetUniformLocation = nullptr;
+GLUniform1fProc glUniform1f = nullptr;
+GLUniformMatrix4fvProc glUniformMatrix4fv = nullptr;
+
 bool InitializeOpenGLFunctions()
 {
     glGenBuffers =
@@ -117,6 +121,17 @@ bool InitializeOpenGLFunctions()
         reinterpret_cast<GLGetProgramInfoLogProc>(
             glfwGetProcAddress("glGetProgramInfoLog"));
 
+    glGetUniformLocation =
+        reinterpret_cast<GLGetUniformLocationProc>(
+            glfwGetProcAddress("glGetUniformLocation"));
+
+    glUniform1f =
+        reinterpret_cast<GLUniform1fProc>(
+            glfwGetProcAddress("glUniform1f"));
+
+    glUniformMatrix4fv =
+        reinterpret_cast<GLUniformMatrix4fvProc>(
+            glfwGetProcAddress("glUniformMatrix4fv"));
 
     if (!glGenBuffers ||
         !glBindBuffer ||
@@ -139,7 +154,10 @@ bool InitializeOpenGLFunctions()
         !glGetShaderiv ||
         !glGetShaderInfoLog ||
         !glGetProgramiv ||
-        !glGetProgramInfoLog)
+        !glGetProgramInfoLog ||
+        !glGetUniformLocation ||
+        !glUniform1f ||
+        !glUniformMatrix4fv)
     {
         std::cerr << "Failed to load OpenGL functions."
                   << std::endl;
