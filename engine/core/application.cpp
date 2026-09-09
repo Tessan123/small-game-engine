@@ -6,7 +6,8 @@
 #include <iostream>
 
 Application::Application()
-    : running(true), deltaTime(0.0f), fps(0.0f), fpsTimer(0.0f), frameCount(0), positionX(0.0f), positionY(0.0f)
+    : running(true), deltaTime(0.0f), fps(0.0f), fpsTimer(0.0f), frameCount(0), positionX(0.0f), positionY(0.0f),
+      vertexArray(nullptr), vertexBuffer(nullptr), indexBuffer(nullptr), shader(nullptr)
 {
 
     if (!glfwInit())
@@ -50,12 +51,49 @@ Application::Application()
 
     Renderer::Initialize();
 
+    float vertices[] = {
+        -0.5f, 0.5f,
+        0.5f, 0.5f,
+        -0.5f, -0.5f,
+        0.5f, -0.5f};
+
+    unsigned int indices[]{
+        0, 1, 2,
+        2, 1, 3};
+
+    vertexArray = new VertexArray();
+
+    vertexArray->Bind();
+
+    vertexBuffer = new VertexBuffer(vertices, sizeof(vertices));
+
+    vertexArray->AddVertexBuffer();
+
+    indexBuffer = new IndexBuffer(indices, 6);
+
+    vertexArray->Unbind();
+
+    shader = new Shader(
+        "Engine/assets/shaders/basic.vert",
+        "Engine/assets/shaders/basic.frag");
+
     const GLubyte *version = glGetString(GL_VERSION);
 
     if (version)
     {
         std::cout << "OpenGL version" << version << std::endl;
     }
+}
+
+Application::~Application()
+{
+    delete shader;
+    delete indexBuffer;
+    delete vertexBuffer;
+    delete vertexArray;
+
+    glfwDestroyWindow(window);
+    glfwTerminate();
 }
 
 void Application::run()
@@ -87,9 +125,6 @@ void Application::run()
         Render();
     }
     std::cout << "Game loop ended." << std::endl;
-
-    glfwDestroyWindow(window);
-    glfwTerminate();
 }
 
 void Application::ProcessInput()
@@ -135,6 +170,15 @@ void Application::Update()
 void Application::Render()
 {
     Renderer::Clear();
+
+    shader->Bind();
+    vertexArray->Bind();
+
+    glDrawElements(GL_TRIANGLES, indexBuffer->GetCount(), GL_UNSIGNED_INT, nullptr);
+
+    vertexArray->Unbind();
+
+    shader->Unbind();
 
     glfwSwapBuffers(window);
 }

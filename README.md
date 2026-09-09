@@ -181,9 +181,9 @@ Build a rendering system directly on top of OpenGL.
 - 🟢 Vertex buffers
 - 🟢 Index buffers
 - 🟢 Vertex arrays
-- [ ] Shader system
-- [ ] Shader compilation
-- [ ] Shader error handling
+- 🟢 Shader system
+- 🟢 Shader compilation
+- 🟢 Shader error handling
 - [ ] Texture system
 - [ ] Camera
 - [ ] 2D rendering

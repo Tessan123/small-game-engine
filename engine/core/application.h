@@ -2,10 +2,16 @@
 
 class GLFWwindow;
 
+#include "vertexArray.h"
+#include "vertexBuffer.h"
+#include "indexBuffer.h"
+#include "shader.h"
+
 class Application
 {
 public:
     Application();
+    ~Application();
 
     void run();
 
@@ -14,7 +20,7 @@ private:
     void Update();
     void Render();
 
-    GLFWwindow* window;
+    GLFWwindow *window;
     bool running;
     float deltaTime;
 
@@ -24,4 +30,9 @@ private:
 
     float positionX;
     float positionY;
+
+    VertexArray *vertexArray;
+    VertexBuffer *vertexBuffer;
+    IndexBuffer *indexBuffer;
+    Shader *shader;
 };
