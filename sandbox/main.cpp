@@ -4,6 +4,7 @@
 #include "vec4.h"
 #include "mat2.h"
 #include "mat3.h"
+#include "mat4.h"
 #include "application.h"
 
 int main()
@@ -12,19 +13,16 @@ int main()
     // Application app;
     // app.run();
 
-    Mat3 matrix(
-        1.0f, 2.0f, 3.0f,
-        4.0f, 5.0f, 6.0f,
-        7.0f, 8.0f, 9.0f);
+    Mat4 matrix;
 
-    Vec3 vector(1.0f, 2.0f, 3.0f);
+    Vec4 vector(1.0f, 2.0f, 3.0f, 1.0f);
 
-    Vec3 result = matrix * vector;
+    Vec4 result = matrix * vector;
 
-    std::cout << result.x << ", "
-              << result.y << ", "
-              << result.z
-              << std::endl;
+    std::cout << result.x << std::endl;
+    std::cout << result.y << std::endl;
+    std::cout << result.z << std::endl;
+    std::cout << result.w << std::endl;
 
     return 0;
 }

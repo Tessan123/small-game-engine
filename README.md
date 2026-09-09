@@ -140,20 +140,20 @@ Implement the mathematical foundations required by the engine.
 
 ### Vectors
 
-- [ ] `Vec2`
-- [ ] `Vec3`
-- [ ] `Vec4`
-- [ ] Addition/subtraction
-- [ ] Scalar multiplication
-- [ ] Dot product
-- [ ] Cross product
-- [ ] Length
-- [ ] Normalization
+- 🟢 `Vec2`
+- 🟢 `Vec3`
+- 🟢 `Vec4`
+- 🟢 Addition/subtraction
+- 🟢 Scalar multiplication
+- 🟢 Dot product
+- 🟢 Cross product
+- 🟢 Length
+- 🟢 Normalization
 
 ### Matrices
 
-- [ ] `Mat2`
-- [ ] `Mat3`
+- 🟢 `Mat2`
+- 🟢 `Mat3`
 - [ ] `Mat4`
 - [ ] Matrix multiplication
 - [ ] Translation
@@ -435,6 +435,20 @@ Optimization will be introduced after the systems are functional.
 - [ ] Reduce unnecessary allocations
 
 > **Measure first, optimize second.**
+
+## Optimization of math
+
+- [ ] Identify performance-critical math operations
+- [ ] Implement baseline/reference implementations
+- [ ] Introduce SIMD optimizations
+  - [ ] Vec4 operations
+  - [ ] Vec4 dot product
+  - [ ] Mat4 × Vec4
+  - [ ] Mat4 × Mat4
+- [ ] Compare SIMD implementations against baseline implementations
+- [ ] Benchmark performance
+- [ ] Measure whether optimizations provide meaningful improvements
+- [ ] Document trade-offs between readability, portability and performance
 
 ---
 
