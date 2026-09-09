@@ -6,6 +6,7 @@
 #include "mat2.h"
 #include "mat3.h"
 #include "mat4.h"
+#include "transform.h"
 #include "application.h"
 
 int main()
@@ -14,22 +15,16 @@ int main()
     // Application app;
     // app.run();
 
-    Vec3 cameraPosition(0.0f, 0.0f, 5.0f);
-    Vec3 target(0.0f, 0.0f, 0.0f);
-    Vec3 up(0.0f, 1.0f, 0.0f);
+    Transform transform;
 
-    Mat4 view = Mat4::LookAt(
-        cameraPosition,
-        target,
-        up);
+    transform.position = Vec3(5.0f, 2.0f, 0.0f);
+    transform.scale = Vec3(2.0f, 2.0f, 2.0f);
 
-    Vec4 point(
-        0.0f,
-        0.0f,
-        0.0f,
-        1.0f);
+    Mat4 model = transform.GetModelMatrix();
 
-    Vec4 result = view * point;
+    Vec4 point(1.0f, 0.0f, 0.0f, 1.0f);
+
+    Vec4 result = model * point;
 
     std::cout << "Result: "
               << result.x << ", "

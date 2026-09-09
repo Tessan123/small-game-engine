@@ -164,10 +164,10 @@ Implement the mathematical foundations required by the engine.
 
 ### Transformations
 
-- [ ] Position
-- [ ] Rotation
-- [ ] Scale
-- [ ] Local/world transformations
+- 🟢 Position
+- 🟢 Rotation
+- 🟢 Scale
+- 🟢 Local/world transformations
 
 No external mathematics library will be used.
 
