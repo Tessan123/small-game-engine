@@ -1,6 +1,7 @@
 #include "application.h"
 #include "input.h"
 #include "renderer.h"
+#include "openGLLoader.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -39,6 +40,14 @@ Application::Application()
 
     glfwMakeContextCurrent(window);
 
+    if (!InitializeOpenGLFunctions())
+    {
+        glfwDestroyWindow(window);
+        glfwTerminate();
+        running = false;
+        return;
+    }
+
     Renderer::Initialize();
 
     const GLubyte *version = glGetString(GL_VERSION);
@@ -51,6 +60,7 @@ Application::Application()
 
 void Application::run()
 {
+    std::cout << "Starting game loop..." << std::endl;
     float lastTime = glfwGetTime();
 
     while (running)
@@ -76,6 +86,7 @@ void Application::run()
         Update();
         Render();
     }
+    std::cout << "Game loop ended." << std::endl;
 
     glfwDestroyWindow(window);
     glfwTerminate();

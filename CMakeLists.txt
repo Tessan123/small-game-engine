@@ -34,6 +34,8 @@ add_executable(MyEngine
     Engine/renderer/vertexBuffer.cpp
     Engine/renderer/indexBuffer.cpp
     Engine/renderer/vertexArray.cpp
+
+    Engine/renderer/shader.cpp
 )
 
 target_include_directories(MyEngine PRIVATE

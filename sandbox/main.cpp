@@ -11,6 +11,8 @@
 #include "vertexBuffer.h"
 #include "indexBuffer.h"
 #include "vertexArray.h"
+#include "shader.h"
+#include "openGLLoader.h"
 
 int main()
 {
@@ -19,6 +21,8 @@ int main()
     // app.run();
 
     Application app;
+
+    std::cout << "1" << std::endl;
 
     float vertices[] = {
         -0.5f, 0.5f,
@@ -30,8 +34,12 @@ int main()
         0, 1, 2,
         2, 1, 3};
 
+    std::cout << "2" << std::endl;
+
     VertexArray vertexArray;
     vertexArray.Bind();
+
+    std::cout << "3" << std::endl;
 
     VertexBuffer vertexBuffer(
         vertices,
@@ -39,13 +47,39 @@ int main()
 
     vertexArray.AddVertexBuffer();
 
+    std::cout << "4" << std::endl;
+
     IndexBuffer indexBuffer(
         indices,
         6);
 
     vertexArray.Unbind();
 
+    std::cout << "5" << std::endl;
+
+    Shader shader(
+        "Engine/Assets/Shaders/basic.vert",
+        "Engine/Assets/Shaders/basic.frag");
+
+    shader.Bind();
+
+    std::cout << "6" << std::endl;
+
+    vertexArray.Bind();
+
+    glDrawElements(
+        GL_TRIANGLES,
+        indexBuffer.GetCount(),
+        GL_UNSIGNED_INT,
+        nullptr);
+
+    vertexArray.Unbind();
+
+    std::cout << "Before app.run()" << std::endl;
+
     app.run();
+
+    std::cout << "After app.run()" << std::endl;
 
     return 0;
 }
