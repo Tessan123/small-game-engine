@@ -13,16 +13,19 @@ int main()
     // Application app;
     // app.run();
 
-    Mat4 matrix;
+    Vec3 translation(5.0f, 2.0f, 3.0f);
 
-    Vec4 vector(1.0f, 2.0f, 3.0f, 1.0f);
+    Mat4 matrix = Mat4::Translation(translation);
 
-    Vec4 result = matrix * vector;
+    Vec4 point(1.0f, 1.0f, 1.0f, 1.0f);
 
-    std::cout << result.x << std::endl;
-    std::cout << result.y << std::endl;
-    std::cout << result.z << std::endl;
-    std::cout << result.w << std::endl;
+    Vec4 result = matrix * point;
+
+    std::cout << "Result: "
+              << result.x << ", "
+              << result.y << ", "
+              << result.z << ", "
+              << result.w << std::endl;
 
     return 0;
 }

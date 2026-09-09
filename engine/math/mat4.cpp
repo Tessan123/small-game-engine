@@ -1,5 +1,6 @@
 #include "mat4.h"
 #include "vec4.h"
+#include "vec3.h"
 #include <xmmintrin.h>
 
 Mat4::Mat4()
@@ -130,4 +131,13 @@ Mat4 Mat4::operator*(float scalar) const
         }
     }
     return result;
+}
+
+Mat4 Mat4::Translation(const Vec3 &translation)
+{
+    return Mat4(
+        1.0f, 0.0f, 0.0f, translation.x,
+        0.0f, 1.0f, 0.0f, translation.y,
+        0.0f, 0.0f, 1.0f, translation.z,
+        0.0f, 0.0f, 0.0f, 1.0f);
 }
