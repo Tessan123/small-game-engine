@@ -1,5 +1,6 @@
 #include "application.h"
 #include "input.h"
+#include "renderer.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 
@@ -37,6 +38,8 @@ Application::Application()
     }
 
     glfwMakeContextCurrent(window);
+
+    Renderer::Initialize();
 
     const GLubyte *version = glGetString(GL_VERSION);
 
@@ -120,4 +123,7 @@ void Application::Update()
 
 void Application::Render()
 {
+    Renderer::Clear();
+
+    glfwSwapBuffers(window);
 }

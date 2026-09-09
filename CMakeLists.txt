@@ -28,12 +28,19 @@ add_executable(MyEngine
     Engine/Math/mat4.cpp
 
     Engine/Math/transform.cpp
+
+    Engine/renderer/renderer.cpp
+    Engine/renderer/openGLLoader.cpp
+    Engine/renderer/vertexBuffer.cpp
+    Engine/renderer/indexBuffer.cpp
+    Engine/renderer/vertexArray.cpp
 )
 
 target_include_directories(MyEngine PRIVATE
     Engine/Core
     Engine/Input
     Engine/Math
+    Engine/renderer
 )
 
 find_package(glfw3 REQUIRED)

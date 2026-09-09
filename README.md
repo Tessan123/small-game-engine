@@ -177,10 +177,10 @@ No external mathematics library will be used.
 
 Build a rendering system directly on top of OpenGL.
 
-- [ ] OpenGL renderer
-- [ ] Vertex buffers
-- [ ] Index buffers
-- [ ] Vertex arrays
+- 🟢 OpenGL renderer
+- 🟢 Vertex buffers
+- 🟢 Index buffers
+- 🟢 Vertex arrays
 - [ ] Shader system
 - [ ] Shader compilation
 - [ ] Shader error handling

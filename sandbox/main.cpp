@@ -8,6 +8,9 @@
 #include "mat4.h"
 #include "transform.h"
 #include "application.h"
+#include "vertexBuffer.h"
+#include "indexBuffer.h"
+#include "vertexArray.h"
 
 int main()
 {
@@ -15,23 +18,34 @@ int main()
     // Application app;
     // app.run();
 
-    Transform transform;
+    Application app;
 
-    transform.position = Vec3(5.0f, 2.0f, 0.0f);
-    transform.scale = Vec3(2.0f, 2.0f, 2.0f);
+    float vertices[] = {
+        -0.5f, 0.5f,
+        0.5f, 0.5f,
+        -0.5f, -0.5f,
+        0.5f, -0.5f};
 
-    Mat4 model = transform.GetModelMatrix();
+    unsigned int indices[] = {
+        0, 1, 2,
+        2, 1, 3};
 
-    Vec4 point(1.0f, 0.0f, 0.0f, 1.0f);
+    VertexArray vertexArray;
+    vertexArray.Bind();
 
-    Vec4 result = model * point;
+    VertexBuffer vertexBuffer(
+        vertices,
+        sizeof(vertices));
 
-    std::cout << "Result: "
-              << result.x << ", "
-              << result.y << ", "
-              << result.z << ", "
-              << result.w
-              << std::endl;
+    vertexArray.AddVertexBuffer();
+
+    IndexBuffer indexBuffer(
+        indices,
+        6);
+
+    vertexArray.Unbind();
+
+    app.run();
 
     return 0;
 }
