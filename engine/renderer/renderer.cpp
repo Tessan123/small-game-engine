@@ -1,6 +1,8 @@
 #include "renderer.h"
 #include "vertexArray.h"
 #include "indexBuffer.h"
+#include "shader.h"
+#include "mat4.h"
 #include <GLFW/glfw3.h>
 
 namespace
@@ -8,7 +10,7 @@ namespace
     GLFWwindow *window = nullptr;
 }
 
-void Renderer::Initialize(GLFWwindow* glfwWindow)
+void Renderer::Initialize(GLFWwindow *glfwWindow)
 {
     window = glfwWindow;
 }
@@ -23,8 +25,11 @@ void Renderer::Present()
     glfwSwapBuffers(window);
 }
 
-void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer)
+void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model)
 {
+    shader.Bind();
+    shader.SetFloat("red", 1.0f);
+    shader.SetMat4("u_Model", model);
     vertexArray.Bind();
 
     glDrawElements(
@@ -34,4 +39,5 @@ void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &in
         nullptr);
 
     vertexArray.Unbind();
+    shader.Unbind();
 }

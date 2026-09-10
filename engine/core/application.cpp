@@ -175,16 +175,9 @@ void Application::Render()
 {
     Renderer::Clear();
 
-    shader->Bind();
-    shader->SetFloat("red", 1.0f);
-
     Mat4 model = transform.GetModelMatrix();
 
-    shader->SetMat4("u_Model", model);
-
-    Renderer::DrawIndexed(*vertexArray, *indexBuffer);
-
-    shader->Unbind();
+    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model);
 
     Renderer::Present();
 }
