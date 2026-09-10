@@ -12,6 +12,6 @@ public:
     unsigned int GetCount() const;
 
 private:
-    unsigned int renderID;
+    unsigned int renderID = 0;
     unsigned int count;
 };

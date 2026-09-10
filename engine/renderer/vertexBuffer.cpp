@@ -17,7 +17,10 @@ VertexBuffer::VertexBuffer(const float *data, unsigned int size)
 
 VertexBuffer::~VertexBuffer()
 {
-    glDeleteBuffers(1, &renderID);
+    if (renderID != 0)
+    {
+        glDeleteBuffers(1, &renderID);
+    }
 }
 
 void VertexBuffer::Bind() const

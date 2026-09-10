@@ -10,5 +10,5 @@ public:
     void Unbind() const;
 
 private:
-    unsigned int renderID;
+    unsigned int renderID = 0;
 };

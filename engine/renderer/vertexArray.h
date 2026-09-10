@@ -12,5 +12,5 @@ public:
     void AddVertexBuffer() const;
 
 private:
-    unsigned int rendererID;
+    unsigned int rendererID = 1;
 };

@@ -29,6 +29,11 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
     std::string vertexSource = ReadFile(vertexPath);
     std::string fragmentSource = ReadFile(fragmentPath);
 
+    if (vertexSource.empty() || fragmentSource.empty())
+    {
+        return;
+    }
+
     const char *vertexSourceC = vertexSource.c_str();
     const char *fragmentSourceC = fragmentSource.c_str();
 
@@ -45,6 +50,8 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
         glGetShaderInfoLog(vertexShader, 512, nullptr, infolog);
         std::cerr << "Vertex shader compilation failed:\n"
                   << infolog << std::endl;
+        glDeleteShader(vertexShader);
+        return;
     }
 
     GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -60,6 +67,9 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
         glGetShaderInfoLog(fragmentShader, 512, nullptr, infolog);
         std::cerr << "Fragment shader compilation failed:\n"
                   << infolog << std::endl;
+        glDeleteShader(fragmentShader);
+        glDeleteShader(vertexShader);
+        return;
     }
 
     rendererID = glCreateProgram();
@@ -78,6 +88,9 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
         glGetProgramInfoLog(rendererID, 512, nullptr, infolog);
         std::cerr << "shader program linking failed:\n"
                   << infolog << std::endl;
+
+        glDeleteProgram(rendererID);
+        rendererID = 0;
     }
 
     glDeleteShader(vertexShader);
@@ -86,7 +99,10 @@ Shader::Shader(const char *vertexPath, const char *fragmentPath)
 
 Shader::~Shader()
 {
-    glDeleteProgram(rendererID);
+    if (rendererID != 0)
+    {
+        glDeleteProgram(rendererID);
+    }
 }
 
 void Shader::Bind() const

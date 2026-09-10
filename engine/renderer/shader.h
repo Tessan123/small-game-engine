@@ -14,5 +14,5 @@ public:
     void SetMat4(const char *name, const Mat4 &matrix) const;
 
 private:
-    unsigned int rendererID;
+    unsigned int rendererID = 0;
 };
