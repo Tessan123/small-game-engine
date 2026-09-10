@@ -1,12 +1,13 @@
 #pragma once
 
-class GLFWwindow;
-
-#include "vertexArray.h"
-#include "vertexBuffer.h"
-#include "indexBuffer.h"
-#include "shader.h"
+#include <memory>
 #include "transform.h"
+
+class GLFWwindow;
+class VertexArray;
+class VertexBuffer;
+class IndexBuffer;
+class Shader;
 
 class Application
 {
@@ -34,8 +35,8 @@ private:
 
     Transform transform;
 
-    VertexArray *vertexArray;
-    VertexBuffer *vertexBuffer;
-    IndexBuffer *indexBuffer;
-    Shader *shader;
+    std::unique_ptr<VertexArray> vertexArray;
+    std::unique_ptr<VertexBuffer> vertexBuffer;
+    std::unique_ptr<IndexBuffer> indexBuffer;
+    std::unique_ptr<Shader> shader;
 };

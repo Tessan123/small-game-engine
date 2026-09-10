@@ -1,9 +1,16 @@
 #include "renderer.h"
+#include "vertexArray.h"
+#include "indexBuffer.h"
 #include <GLFW/glfw3.h>
 
-void Renderer::Initialize()
+namespace
 {
-    // opengl init go here
+    GLFWwindow *window = nullptr;
+}
+
+void Renderer::Initialize(GLFWwindow* glfwWindow)
+{
+    window = glfwWindow;
 }
 
 void Renderer::Clear()
@@ -13,5 +20,18 @@ void Renderer::Clear()
 
 void Renderer::Present()
 {
-    // swap buffers will be handled by the window
+    glfwSwapBuffers(window);
+}
+
+void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer)
+{
+    vertexArray.Bind();
+
+    glDrawElements(
+        GL_TRIANGLES,
+        indexBuffer.GetCount(),
+        GL_UNSIGNED_INT,
+        nullptr);
+
+    vertexArray.Unbind();
 }
