@@ -3,6 +3,7 @@
 #include "indexBuffer.h"
 #include "shader.h"
 #include "mat4.h"
+#include "texture.h"
 #include <GLFW/glfw3.h>
 
 namespace
@@ -25,11 +26,15 @@ void Renderer::Present()
     glfwSwapBuffers(window);
 }
 
-void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model)
+void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model, const Texture &texture)
 {
     shader.Bind();
-    shader.SetFloat("red", 1.0f);
+    //shader.SetFloat("red", 1.0f);
     shader.SetMat4("u_Model", model);
+
+    texture.Bind(0);
+    shader.SetInt("u_Texture", 0);
+
     vertexArray.Bind();
 
     glDrawElements(
@@ -39,5 +44,7 @@ void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &in
         nullptr);
 
     vertexArray.Unbind();
+
+    texture.Unbind();
     shader.Unbind();
 }

@@ -14,6 +14,7 @@
 #define GL_LINK_STATUS 0x8B82
 #define GL_TRIANGLES 0x0004
 #define GL_UNSIGNED_INT 0x1405
+#define GL_TEXTURE0 0x84C0
 
 using GLGenBuffersProc = void (*)(GLsizei, GLuint *);
 
@@ -65,6 +66,8 @@ using GLUniform1fProc = void (*)(GLint, GLfloat);
 
 using GLUniformMatrix4fvProc = void (*)(GLint, GLsizei, GLboolean, const GLfloat *);
 
+using GLActiveTextureProc = void (*)(GLenum);
+
 extern GLGenBuffersProc glGenBuffers;
 extern GLBindBufferProc glBindBuffer;
 extern GLBufferDataProc glBufferData;
@@ -94,5 +97,7 @@ extern GLGetProgramInfoLogProc glGetProgramInfoLog;
 extern GLGetUniformLocationProc glGetUniformLocation;
 extern GLUniform1fProc glUniform1f;
 extern GLUniformMatrix4fvProc glUniformMatrix4fv;
+
+extern GLActiveTextureProc glActiveTexture;
 
 bool InitializeOpenGLFunctions();

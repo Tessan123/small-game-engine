@@ -8,7 +8,7 @@ VertexArray::VertexArray()
 
 VertexArray::~VertexArray()
 {
-    if (rendererID != 1)
+    if (rendererID != 0)
     {
         glDeleteVertexArrays(1, &rendererID);
     }
@@ -31,8 +31,18 @@ void VertexArray::AddVertexBuffer() const
         2,
         GL_FLOAT,
         GL_FALSE,
-        2 * sizeof(float),
+        4 * sizeof(float),
         nullptr);
 
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(
+        1,
+        2,
+        GL_FLOAT,
+        GL_FALSE,
+        4 * sizeof(float),
+        (void *)(2 * sizeof(float)));
+
+    glEnableVertexAttribArray(1);
 }

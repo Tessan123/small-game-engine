@@ -11,6 +11,7 @@ public:
     void Unbind() const;
 
     void SetFloat(const char *name, float value) const;
+    void SetInt(const char *name, int value) const;
     void SetMat4(const char *name, const Mat4 &matrix) const;
 
 private:

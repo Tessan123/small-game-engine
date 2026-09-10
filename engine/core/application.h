@@ -8,6 +8,7 @@ class VertexArray;
 class VertexBuffer;
 class IndexBuffer;
 class Shader;
+class Texture;
 
 class Application
 {
@@ -39,4 +40,5 @@ private:
     std::unique_ptr<VertexBuffer> vertexBuffer;
     std::unique_ptr<IndexBuffer> indexBuffer;
     std::unique_ptr<Shader> shader;
+    std::unique_ptr<Texture> texture;
 };

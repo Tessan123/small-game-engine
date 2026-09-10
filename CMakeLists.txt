@@ -36,6 +36,7 @@ add_executable(MyEngine
     Engine/renderer/vertexArray.cpp
 
     Engine/renderer/shader.cpp
+    Engine/renderer/texture.cpp
 )
 
 target_include_directories(MyEngine PRIVATE
@@ -43,6 +44,7 @@ target_include_directories(MyEngine PRIVATE
     Engine/Input
     Engine/Math
     Engine/renderer
+    Engine/thirdParty/stb
 )
 
 find_package(glfw3 REQUIRED)

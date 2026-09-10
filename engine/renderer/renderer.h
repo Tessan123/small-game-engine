@@ -6,6 +6,7 @@ class VertexArray;
 class IndexBuffer;
 class Shader;
 class Mat4;
+class Texture;
 class Renderer
 {
 public:
@@ -14,5 +15,5 @@ public:
     static void Present();
 
     static void DrawIndexed(
-        const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model);
+        const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model, const Texture &texture);
 };

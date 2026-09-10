@@ -6,6 +6,7 @@
 #include "vertexBuffer.h"
 #include "indexBuffer.h"
 #include "shader.h"
+#include "texture.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <memory>
@@ -56,14 +57,16 @@ Application::Application()
     Renderer::Initialize(window);
 
     float vertices[] = {
-        -0.5f, 0.5f,
-        0.5f, 0.5f,
-        -0.5f, -0.5f,
-        0.5f, -0.5f};
+        -0.5f, -0.5f, 0.0f, 0.0f,
+        0.5f, -0.5f, 1.0f, 0.0f,
+        0.5f, 0.5f, 1.0f, 1.0f,
+        -0.5f, 0.5f, 0.0f, 1.0f};
 
     unsigned int indices[]{
         0, 1, 2,
         2, 1, 3};
+
+    texture = std::make_unique<Texture>("engine/assets/test.jpg");
 
     vertexArray = std::make_unique<VertexArray>();
 
@@ -164,9 +167,9 @@ void Application::Update()
         std::cout << "Shoot!" << std::endl;
     }
     // transform.position.x = 2.0f;
-    transform.position.x = 0.5f;
-    transform.rotation.z = 0.5f;
-    transform.scale.x = 0.5f;
+    // transform.position.x = 0.5f;
+    // transform.rotation.z = 0.5f;
+    // transform.scale.x = 0.5f;
 
     // std::cout << "Postition: " << positionX << ", " << positionY << std::endl;
 }
@@ -177,7 +180,7 @@ void Application::Render()
 
     Mat4 model = transform.GetModelMatrix();
 
-    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model);
+    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, *texture);
 
     Renderer::Present();
 }
