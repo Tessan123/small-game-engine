@@ -7,12 +7,16 @@
 #include "indexBuffer.h"
 #include "shader.h"
 #include "texture.h"
+#include "camera.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <memory>
 
 Application::Application()
-    : running(true), deltaTime(0.0f), fps(0.0f), fpsTimer(0.0f), frameCount(0), positionX(0.0f), positionY(0.0f), window(nullptr)
+    : running(true), deltaTime(0.0f), fps(0.0f), fpsTimer(0.0f), frameCount(0), positionX(0.0f), positionY(0.0f), window(nullptr), camera(45.0f * 3.14159265359f / 180.0f,
+                                                                                                                                          800.0f / 600.0f,
+                                                                                                                                          0.1f,
+                                                                                                                                          100.0f)
 {
 
     if (!glfwInit())
@@ -20,6 +24,8 @@ Application::Application()
         std::cerr << "failed to initialize GLFW" << std::endl;
         return;
     }
+
+    //camera.SetPosition(Vec3(0.0f, 0.0f, 5.0f));
 
     Input::Bind(Action::MoveForvard, Key::W);
     Input::Bind(Action::MoveBackward, Key::S);
@@ -64,7 +70,7 @@ Application::Application()
 
     unsigned int indices[]{
         0, 1, 2,
-        2, 1, 3};
+        2, 0, 3};
 
     texture = std::make_unique<Texture>("engine/assets/test.jpg");
 
@@ -179,8 +185,10 @@ void Application::Render()
     Renderer::Clear();
 
     Mat4 model = transform.GetModelMatrix();
+    Mat4 view = camera.GetViewMatrix();
+    Mat4 projection = camera.GetProjectionMatrix();
 
-    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, *texture);
+    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, view, projection, *texture);
 
     Renderer::Present();
 }

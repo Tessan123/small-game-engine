@@ -64,6 +64,8 @@ using GLGetUniformLocationProc = GLint (*)(GLuint, const char *);
 
 using GLUniform1fProc = void (*)(GLint, GLfloat);
 
+using GLUniform1iProc = void (*)(GLint, GLint);
+
 using GLUniformMatrix4fvProc = void (*)(GLint, GLsizei, GLboolean, const GLfloat *);
 
 using GLActiveTextureProc = void (*)(GLenum);
@@ -96,6 +98,7 @@ extern GLGetProgramInfoLogProc glGetProgramInfoLog;
 
 extern GLGetUniformLocationProc glGetUniformLocation;
 extern GLUniform1fProc glUniform1f;
+extern GLUniform1iProc glUniform1i;
 extern GLUniformMatrix4fvProc glUniformMatrix4fv;
 
 extern GLActiveTextureProc glActiveTexture;

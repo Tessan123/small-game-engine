@@ -11,6 +11,8 @@ Texture::Texture(const char *path)
     int height;
     int channels;
 
+    stbi_set_flip_vertically_on_load(true);
+
     unsigned char *data = stbi_load(
         path,
         &width,
@@ -21,6 +23,7 @@ Texture::Texture(const char *path)
     if (!data)
     {
         std::cout << "Could not load texture: " << path << std::endl;
+        std::cout << "STB error: " << stbi_failure_reason() << std::endl;
         return;
     }
 

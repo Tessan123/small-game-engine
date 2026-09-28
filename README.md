@@ -184,7 +184,7 @@ Build a rendering system directly on top of OpenGL.
 - 🟢 Shader system
 - 🟢 Shader compilation
 - 🟢 Shader error handling
-- [ ] Texture system
+- 🟢 Texture system
 - [ ] Camera
 - [ ] 2D rendering
 - [ ] 3D rendering

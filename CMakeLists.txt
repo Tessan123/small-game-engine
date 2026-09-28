@@ -37,6 +37,7 @@ add_executable(MyEngine
 
     Engine/renderer/shader.cpp
     Engine/renderer/texture.cpp
+    Engine/renderer/camera.cpp
 )
 
 target_include_directories(MyEngine PRIVATE

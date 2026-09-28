@@ -26,11 +26,13 @@ void Renderer::Present()
     glfwSwapBuffers(window);
 }
 
-void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model, const Texture &texture)
+void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model, const Mat4 &view, const Mat4 &projection, const Texture &texture)
 {
     shader.Bind();
-    //shader.SetFloat("red", 1.0f);
+    // shader.SetFloat("red", 1.0f);
     shader.SetMat4("u_Model", model);
+    shader.SetMat4("u_View", view);
+    shader.SetMat4("u_Projection", projection);
 
     texture.Bind(0);
     shader.SetInt("u_Texture", 0);

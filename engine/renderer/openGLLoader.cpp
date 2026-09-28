@@ -29,6 +29,7 @@ GLGetProgramInfoLogProc glGetProgramInfoLog = nullptr;
 
 GLGetUniformLocationProc glGetUniformLocation = nullptr;
 GLUniform1fProc glUniform1f = nullptr;
+GLUniform1iProc glUniform1i = nullptr;
 GLUniformMatrix4fvProc glUniformMatrix4fv = nullptr;
 
 GLActiveTextureProc glActiveTexture = nullptr;
@@ -139,6 +140,10 @@ bool InitializeOpenGLFunctions()
         reinterpret_cast<GLActiveTextureProc>(
             glfwGetProcAddress("glActiveTexture"));
 
+    glUniform1i =
+        reinterpret_cast<GLUniform1iProc>(
+            glfwGetProcAddress("glUniform1i"));
+
     if (!glGenBuffers ||
         !glBindBuffer ||
         !glBufferData ||
@@ -163,6 +168,7 @@ bool InitializeOpenGLFunctions()
         !glGetProgramInfoLog ||
         !glGetUniformLocation ||
         !glUniform1f ||
+        !glUniform1i ||
         !glUniformMatrix4fv ||
         !glActiveTexture)
     {

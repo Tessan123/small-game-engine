@@ -15,5 +15,5 @@ public:
     static void Present();
 
     static void DrawIndexed(
-        const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model, const Texture &texture);
+        const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model, const Mat4 &view, const Mat4 &projection, const Texture &texture);
 };

@@ -136,7 +136,7 @@ void Shader::SetInt(const char *name, int value) const
         return;
     }
 
-    glUniform1f(location, value);
+    glUniform1i(location, value);
 }
 
 void Shader::SetMat4(const char *name, const Mat4 &matrix) const
@@ -148,5 +148,5 @@ void Shader::SetMat4(const char *name, const Mat4 &matrix) const
         std::cerr << "Uniform not found: " << name << std::endl;
         return;
     }
-    glUniformMatrix4fv(location, 1, GL_FALSE, &matrix.m[0][0]);
+    glUniformMatrix4fv(location, 1, GL_TRUE, &matrix.m[0][0]);
 }
