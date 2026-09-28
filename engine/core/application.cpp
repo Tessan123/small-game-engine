@@ -25,7 +25,7 @@ Application::Application()
         return;
     }
 
-    //camera.SetPosition(Vec3(0.0f, 0.0f, 5.0f));
+    // camera.SetPosition(Vec3(0.0f, 0.0f, 5.0f));
 
     Input::Bind(Action::MoveForvard, Key::W);
     Input::Bind(Action::MoveBackward, Key::S);
@@ -149,35 +149,27 @@ void Application::ProcessInput()
 
 void Application::Update()
 {
-    const float speed = 200.0f;
-
     if (Input::IsActionDown(Action::MoveForvard))
     {
-        positionY += speed * deltaTime;
+        camera.Move(Vec3(0.0f, 0.0f, -1.0f), deltaTime);
     }
 
     if (Input::IsActionDown(Action::MoveBackward))
     {
-        positionY -= speed * deltaTime;
+        camera.Move(Vec3(0.0f, 0.0f, 1.0f), deltaTime);
     }
     if (Input::IsActionDown(Action::MoveLeft))
     {
-        positionX -= speed * deltaTime;
+        camera.Move(Vec3(-1.0f, 0.0f, 0.0f), deltaTime);
     }
     if (Input::IsActionDown(Action::MoveRight))
     {
-        positionX += speed * deltaTime;
+        camera.Move(Vec3(1.0f, 0.0f, 0.0f), deltaTime);
     }
     if (Input::WasActionPressed(Action::Shoot))
     {
         std::cout << "Shoot!" << std::endl;
     }
-    // transform.position.x = 2.0f;
-    // transform.position.x = 0.5f;
-    // transform.rotation.z = 0.5f;
-    // transform.scale.x = 0.5f;
-
-    // std::cout << "Postition: " << positionX << ", " << positionY << std::endl;
 }
 
 void Application::Render()

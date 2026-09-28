@@ -25,3 +25,11 @@ void Camera::SetTarget(const Vec3 &newTarget)
 {
     target = newTarget;
 }
+
+void Camera::Move(const Vec3 &direction, float deltaTime)
+{
+    const float speed = 3.0f;
+
+    position = position + direction * speed * deltaTime;
+    target = target + direction * speed * deltaTime;
+}
