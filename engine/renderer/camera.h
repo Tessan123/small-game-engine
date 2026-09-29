@@ -17,6 +17,9 @@ public:
     void Move(const Vec3 &direction, float deltaTime);
     void Rotate(float yawOffset, float pitchOffset);
 
+    Vec3 GetForward() const;
+    Vec3 GetRight() const;
+
 private:
     Vec3 position;
     Vec3 target;

@@ -152,20 +152,20 @@ void Application::Update()
 {
     if (Input::IsActionDown(Action::MoveForvard))
     {
-        camera.Move(Vec3(0.0f, 0.0f, -1.0f), deltaTime);
+        camera.Move(camera.GetForward(), deltaTime);
     }
 
     if (Input::IsActionDown(Action::MoveBackward))
     {
-        camera.Move(Vec3(0.0f, 0.0f, 1.0f), deltaTime);
+        camera.Move(-camera.GetForward(), deltaTime);
     }
     if (Input::IsActionDown(Action::MoveLeft))
     {
-        camera.Move(Vec3(-1.0f, 0.0f, 0.0f), deltaTime);
+        camera.Move(-camera.GetRight(), deltaTime);
     }
     if (Input::IsActionDown(Action::MoveRight))
     {
-        camera.Move(Vec3(1.0f, 0.0f, 0.0f), deltaTime);
+        camera.Move(camera.GetRight(), deltaTime);
     }
 
     double mouseDeltaX = Input::GetMouseDeltaX();

@@ -64,3 +64,16 @@ void Camera::UpdateDirection()
 
     target = position + direction.Normalize();
 }
+
+Vec3 Camera::GetForward() const
+{
+    Vec3 forward = target - position;
+    forward.y = 0.0f;
+
+    return forward.Normalize();
+}
+
+Vec3 Camera::GetRight() const
+{
+    return up.Cross(GetForward()).Normalize();
+}
