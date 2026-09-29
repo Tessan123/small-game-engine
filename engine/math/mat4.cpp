@@ -212,3 +212,12 @@ Mat4 Mat4::LookAt(const Vec3 &position, const Vec3 &target, const Vec3 &up)
         -forward.x, -forward.y, -forward.z, forward.Dot(position),
         0.0f, 0.0f, 0.0f, 1.0f);
 }
+
+Mat4 Mat4::Orthographic(float left, float right, float bottom, float top, float nearPlane, float farPlane)
+{
+    return Mat4(
+        2.0f / (right - left), 0.0f, 0.0f, -(right + left) / (right - left),
+        0.0f, 2.0f / (top - bottom), 0.0f, -(top + bottom) / (top - bottom),
+        0.0f, 0.0f, -2.0f / (farPlane - nearPlane), -(farPlane + nearPlane) / (farPlane - nearPlane),
+        0.0f, 0.0f, 0.0f, 1.0f);
+}

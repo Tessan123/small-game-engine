@@ -8,6 +8,7 @@
 #include "shader.h"
 #include "texture.h"
 #include "camera.h"
+#include "sprite.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <memory>
@@ -75,6 +76,10 @@ Application::Application()
 
     texture = std::make_unique<Texture>("engine/assets/test.jpg");
 
+    sprite = std::make_unique<Sprite>(texture.get());
+    sprite->SetPosition(Vec2(400.0f, 300.0f));
+    sprite->SetSize(Vec2(200.0f, 200.0f));
+
     vertexArray = std::make_unique<VertexArray>();
 
     vertexArray->Bind();
@@ -90,6 +95,10 @@ Application::Application()
     shader = std::make_unique<Shader>(
         "Engine/assets/shaders/basic.vert",
         "Engine/assets/shaders/basic.frag");
+
+    spriteShader = std::make_unique<Shader>(
+        "Engine/assets/shaders/sprite.vert",
+        "Engine/assets/shaders/sprite.frag");
 
     const GLubyte *version = glGetString(GL_VERSION);
 
@@ -150,23 +159,32 @@ void Application::ProcessInput()
 
 void Application::Update()
 {
+    const float spriteSpeed = 200.0f;
+    Vec2 spriteMovement(0.0f, 0.0f);
+
     if (Input::IsActionDown(Action::MoveForvard))
     {
-        camera.Move(camera.GetForward(), deltaTime);
+        // camera.Move(camera.GetForward(), deltaTime);
+        spriteMovement.y += spriteSpeed * deltaTime;
     }
 
     if (Input::IsActionDown(Action::MoveBackward))
     {
-        camera.Move(-camera.GetForward(), deltaTime);
+        // camera.Move(-camera.GetForward(), deltaTime);
+        spriteMovement.y -= spriteSpeed * deltaTime;
     }
     if (Input::IsActionDown(Action::MoveLeft))
     {
-        camera.Move(-camera.GetRight(), deltaTime);
+        // camera.Move(-camera.GetRight(), deltaTime);
+        spriteMovement.x -= spriteSpeed * deltaTime;
     }
     if (Input::IsActionDown(Action::MoveRight))
     {
-        camera.Move(camera.GetRight(), deltaTime);
+        // camera.Move(camera.GetRight(), deltaTime);
+        spriteMovement.x += spriteSpeed * deltaTime;
     }
+
+    sprite->SetPosition(sprite->GetPosition() + spriteMovement);
 
     double mouseDeltaX = Input::GetMouseDeltaX();
     double mouseDeltaY = Input::GetMouseDeltaY();
@@ -185,11 +203,16 @@ void Application::Render()
 {
     Renderer::Clear();
 
-    Mat4 model = transform.GetModelMatrix();
-    Mat4 view = camera.GetViewMatrix();
-    Mat4 projection = camera.GetProjectionMatrix();
+    // Mat4 model = transform.GetModelMatrix();
+    // Mat4 view = camera.GetViewMatrix();
+    // Mat4 projection = camera.GetProjectionMatrix();
 
-    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, view, projection, *texture);
+    Mat4 spriteProjection = Mat4::Orthographic(
+        0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
+
+    // Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, view, projection, *texture);
+
+    Renderer::DrawSprite(*sprite, *spriteShader, *vertexArray, *indexBuffer, spriteProjection);
 
     Renderer::Present();
 }
