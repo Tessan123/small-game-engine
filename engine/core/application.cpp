@@ -14,10 +14,12 @@
 #include <memory>
 
 Application::Application()
-    : running(true), deltaTime(0.0f), fps(0.0f), fpsTimer(0.0f), frameCount(0), positionX(0.0f), positionY(0.0f), window(nullptr), camera(45.0f * 3.14159265359f / 180.0f,
-                                                                                                                                          800.0f / 600.0f,
-                                                                                                                                          0.1f,
-                                                                                                                                          100.0f)
+    : running(true), deltaTime(0.0f), fps(0.0f), fpsTimer(0.0f), frameCount(0), positionX(0.0f), positionY(0.0f), window(nullptr),
+      camera(45.0f * 3.14159265359f / 180.0f,
+             800.0f / 600.0f,
+             0.1f,
+             100.0f),
+      camera2D(800.0f, 600.0f)
 {
 
     if (!glfwInit())
@@ -52,6 +54,7 @@ Application::Application()
     }
 
     glfwMakeContextCurrent(window);
+    glfwSetScrollCallback(window, ScrollCallback);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     if (!InitializeOpenGLFunctions())
@@ -132,7 +135,7 @@ void Application::run()
         {
             fps = frameCount / fpsTimer;
 
-            std::cout << "FPS: " << fps << std::endl;
+            // std::cout << "FPS: " << fps << std::endl;
 
             frameCount = 0;
             fpsTimer = 0.0f;
@@ -160,31 +163,45 @@ void Application::ProcessInput()
 void Application::Update()
 {
     const float spriteSpeed = 200.0f;
+    const float cameraSpeed = 300.0f;
     Vec2 spriteMovement(0.0f, 0.0f);
+    Vec2 cameraMovement(0.0f, 0.0f);
+    double scroll = Input::GetScrollDelta();
+
+    if (scroll != 0.0)
+    {
+        camera2D.Zoom(scroll * 0.1f);
+        Input::ResetScroll();
+    }
 
     if (Input::IsActionDown(Action::MoveForvard))
     {
         // camera.Move(camera.GetForward(), deltaTime);
-        spriteMovement.y += spriteSpeed * deltaTime;
+        // spriteMovement.y += spriteSpeed * deltaTime;
+        cameraMovement.y += cameraSpeed * deltaTime;
     }
 
     if (Input::IsActionDown(Action::MoveBackward))
     {
         // camera.Move(-camera.GetForward(), deltaTime);
-        spriteMovement.y -= spriteSpeed * deltaTime;
+        // spriteMovement.y -= spriteSpeed * deltaTime;
+        cameraMovement.y -= cameraSpeed * deltaTime;
     }
     if (Input::IsActionDown(Action::MoveLeft))
     {
         // camera.Move(-camera.GetRight(), deltaTime);
-        spriteMovement.x -= spriteSpeed * deltaTime;
+        // spriteMovement.x -= spriteSpeed * deltaTime;
+        cameraMovement.x -= cameraSpeed * deltaTime;
     }
     if (Input::IsActionDown(Action::MoveRight))
     {
         // camera.Move(camera.GetRight(), deltaTime);
-        spriteMovement.x += spriteSpeed * deltaTime;
+        // spriteMovement.x += spriteSpeed * deltaTime;
+        cameraMovement.x += cameraSpeed * deltaTime;
     }
 
-    sprite->SetPosition(sprite->GetPosition() + spriteMovement);
+    // sprite->SetPosition(sprite->GetPosition() + spriteMovement);
+    camera2D.Move(cameraMovement);
 
     double mouseDeltaX = Input::GetMouseDeltaX();
     double mouseDeltaY = Input::GetMouseDeltaY();
@@ -207,12 +224,12 @@ void Application::Render()
     // Mat4 view = camera.GetViewMatrix();
     // Mat4 projection = camera.GetProjectionMatrix();
 
-    Mat4 spriteProjection = Mat4::Orthographic(
-        0.0f, 800.0f, 0.0f, 600.0f, -1.0f, 1.0f);
+    Mat4 spriteView = camera2D.GetViewMatrix();
+    Mat4 spriteProjection = camera2D.GetProjectionMatrix();
 
     // Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, view, projection, *texture);
 
-    Renderer::DrawSprite(*sprite, *spriteShader, *vertexArray, *indexBuffer, spriteProjection);
+    Renderer::DrawSprite(*sprite, *spriteShader, *vertexArray, *indexBuffer, spriteView, spriteProjection);
 
     Renderer::Present();
 }

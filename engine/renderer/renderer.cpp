@@ -54,7 +54,7 @@ void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &in
 }
 
 void Renderer::DrawSprite(
-    const Sprite &sprite, const Shader &shader, const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Mat4 &projection)
+    const Sprite &sprite, const Shader &shader, const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Mat4 &view, const Mat4 &projection)
 {
     Mat4 model = Mat4::Translation(
                      Vec3(
@@ -70,6 +70,7 @@ void Renderer::DrawSprite(
     shader.Bind();
 
     shader.SetMat4("u_Model", model);
+    shader.SetMat4("u_View", view);
     shader.SetMat4("u_Projection", projection);
 
     sprite.GetTexture()->Bind(0);

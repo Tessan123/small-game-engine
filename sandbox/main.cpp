@@ -17,8 +17,6 @@
 int main()
 {
     // std::cout << "My engine starting..." << std::endl;
-    // Application app;
-    // app.run();
     Application app;
     app.run();
 

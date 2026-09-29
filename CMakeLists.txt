@@ -39,6 +39,7 @@ add_executable(MyEngine
     Engine/renderer/texture.cpp
     Engine/renderer/camera.cpp
     engine/renderer/sprite.cpp
+    engine/renderer/camera2D.cpp
 )
 
 target_include_directories(MyEngine PRIVATE

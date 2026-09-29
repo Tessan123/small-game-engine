@@ -3,6 +3,7 @@
 #include <memory>
 #include "transform.h"
 #include "camera.h"
+#include "camera2D.h"
 
 class GLFWwindow;
 class VertexArray;
@@ -26,6 +27,7 @@ private:
     void Render();
 
     Camera camera;
+    Camera2D camera2D;
 
     GLFWwindow *window;
     bool running;

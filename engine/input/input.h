@@ -26,7 +26,9 @@ enum class Action
     MoveRight,
     Shoot,
     Aim,
-    Exit
+    Exit,
+    ZoomIn,
+    ZoomOut
 };
 
 enum class BindingType
@@ -65,6 +67,10 @@ public:
     static double GetMouseDeltaX();
     static double GetMouseDeltaY();
 
+    static double GetScrollDelta();
+    static void AddScroll(double amount);
+    static void ResetScroll();
+
     static void Bind(Action action, Key key);
     static void Bind(Action action, MouseButton button);
 
@@ -84,5 +90,9 @@ private:
     static double previousMouseX;
     static double previousMouseY;
 
-    static std::array<InputBinding, 7> bindings;
+    static double scrollDelta;
+
+    static std::array<InputBinding, 9> bindings;
 };
+
+void ScrollCallback(GLFWwindow *window, double xOffset, double yOffset);

@@ -12,7 +12,9 @@ double Input::mouseY = 0.0;
 double Input::previousMouseX = 0.0;
 double Input::previousMouseY = 0.0;
 
-std::array<InputBinding, 7> Input::bindings{};
+double Input::scrollDelta = 0.0;
+
+std::array<InputBinding, 9> Input::bindings{};
 
 void Input::Update(GLFWwindow *window)
 {
@@ -185,4 +187,24 @@ double Input::GetMouseDeltaX()
 double Input::GetMouseDeltaY()
 {
     return mouseY - previousMouseY;
+}
+
+void ScrollCallback(GLFWwindow *window, double xOffset, double yOffset)
+{
+    Input::AddScroll(yOffset);
+}
+
+void Input::AddScroll(double amount)
+{
+    scrollDelta += amount;
+}
+
+double Input::GetScrollDelta()
+{
+    return scrollDelta;
+}
+
+void Input::ResetScroll()
+{
+    scrollDelta = 0.0;
 }
