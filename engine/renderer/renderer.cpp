@@ -16,11 +16,12 @@ namespace
 void Renderer::Initialize(GLFWwindow *glfwWindow)
 {
     window = glfwWindow;
+    glEnable(GL_DEPTH_TEST);
 }
 
 void Renderer::Clear()
 {
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void Renderer::Present()

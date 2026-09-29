@@ -9,6 +9,7 @@
 #include "texture.h"
 #include "camera.h"
 #include "sprite.h"
+#include "vertexBufferLayout.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <memory>
@@ -67,15 +68,69 @@ Application::Application()
 
     Renderer::Initialize(window);
 
-    float vertices[] = {
-        -0.5f, -0.5f, 0.0f, 0.0f,
-        0.5f, -0.5f, 1.0f, 0.0f,
-        0.5f, 0.5f, 1.0f, 1.0f,
-        -0.5f, 0.5f, 0.0f, 1.0f};
+    float vertices[] =
+        {
+            // Front
+            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+            0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+            -0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
 
-    unsigned int indices[]{
-        0, 1, 2,
-        2, 0, 3};
+            // Back
+            -0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+            -0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+            0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+            0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+
+            // Left
+            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f,
+            -0.5f, -0.5f, 0.5f, 1.0f, 0.0f,
+            -0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f,
+
+            // Right
+            0.5f, -0.5f, -0.5f, 1.0f, 0.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 1.0f,
+            0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
+            0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+
+            // Top
+            -0.5f, 0.5f, -0.5f, 0.0f, 0.0f,
+            -0.5f, 0.5f, 0.5f, 0.0f, 1.0f,
+            0.5f, 0.5f, 0.5f, 1.0f, 1.0f,
+            0.5f, 0.5f, -0.5f, 1.0f, 0.0f,
+
+            // Bottom
+            -0.5f, -0.5f, -0.5f, 1.0f, 1.0f,
+            0.5f, -0.5f, -0.5f, 0.0f, 1.0f,
+            0.5f, -0.5f, 0.5f, 0.0f, 0.0f,
+            -0.5f, -0.5f, 0.5f, 1.0f, 0.0f};
+
+    unsigned int indices[] =
+        {
+            // Front
+            0, 1, 2,
+            2, 3, 0,
+
+            // Back
+            4, 5, 6,
+            6, 7, 4,
+
+            // Left
+            8, 9, 10,
+            10, 11, 8,
+
+            // Right
+            12, 13, 14,
+            14, 15, 12,
+
+            // Top
+            16, 17, 18,
+            18, 19, 16,
+
+            // Bottom
+            20, 21, 22,
+            22, 23, 20};
 
     texture = std::make_unique<Texture>("engine/assets/test.jpg");
 
@@ -89,9 +144,14 @@ Application::Application()
 
     vertexBuffer = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
 
-    vertexArray->AddVertexBuffer();
+    VertexBufferLayout layout;
 
-    indexBuffer = std::make_unique<IndexBuffer>(indices, 6);
+    layout.Push(ShaderDataType::Float3);
+    layout.Push(ShaderDataType::Float2);
+
+    vertexArray->AddVertexBuffer(layout);
+
+    indexBuffer = std::make_unique<IndexBuffer>(indices, 36);
 
     vertexArray->Unbind();
 
@@ -176,32 +236,32 @@ void Application::Update()
 
     if (Input::IsActionDown(Action::MoveForvard))
     {
-        // camera.Move(camera.GetForward(), deltaTime);
+        camera.Move(camera.GetForward(), deltaTime);
         // spriteMovement.y += spriteSpeed * deltaTime;
-        cameraMovement.y += cameraSpeed * deltaTime;
+        // cameraMovement.y += cameraSpeed * deltaTime;
     }
 
     if (Input::IsActionDown(Action::MoveBackward))
     {
-        // camera.Move(-camera.GetForward(), deltaTime);
+        camera.Move(-camera.GetForward(), deltaTime);
         // spriteMovement.y -= spriteSpeed * deltaTime;
-        cameraMovement.y -= cameraSpeed * deltaTime;
+        // cameraMovement.y -= cameraSpeed * deltaTime;
     }
     if (Input::IsActionDown(Action::MoveLeft))
     {
-        // camera.Move(-camera.GetRight(), deltaTime);
+        camera.Move(-camera.GetRight(), deltaTime);
         // spriteMovement.x -= spriteSpeed * deltaTime;
-        cameraMovement.x -= cameraSpeed * deltaTime;
+        // cameraMovement.x -= cameraSpeed * deltaTime;
     }
     if (Input::IsActionDown(Action::MoveRight))
     {
-        // camera.Move(camera.GetRight(), deltaTime);
+        camera.Move(camera.GetRight(), deltaTime);
         // spriteMovement.x += spriteSpeed * deltaTime;
-        cameraMovement.x += cameraSpeed * deltaTime;
+        // cameraMovement.x += cameraSpeed * deltaTime;
     }
 
     // sprite->SetPosition(sprite->GetPosition() + spriteMovement);
-    camera2D.Move(cameraMovement);
+    // camera2D.Move(cameraMovement);
 
     double mouseDeltaX = Input::GetMouseDeltaX();
     double mouseDeltaY = Input::GetMouseDeltaY();
@@ -220,16 +280,16 @@ void Application::Render()
 {
     Renderer::Clear();
 
-    // Mat4 model = transform.GetModelMatrix();
-    // Mat4 view = camera.GetViewMatrix();
-    // Mat4 projection = camera.GetProjectionMatrix();
+    Mat4 model = transform.GetModelMatrix();
+    Mat4 view = camera.GetViewMatrix();
+    Mat4 projection = camera.GetProjectionMatrix();
 
-    Mat4 spriteView = camera2D.GetViewMatrix();
-    Mat4 spriteProjection = camera2D.GetProjectionMatrix();
+    // Mat4 spriteView = camera2D.GetViewMatrix();
+    // Mat4 spriteProjection = camera2D.GetProjectionMatrix();
 
-    // Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, view, projection, *texture);
+    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, view, projection, *texture);
 
-    Renderer::DrawSprite(*sprite, *spriteShader, *vertexArray, *indexBuffer, spriteView, spriteProjection);
+    // Renderer::DrawSprite(*sprite, *spriteShader, *vertexArray, *indexBuffer, spriteView, spriteProjection);
 
     Renderer::Present();
 }

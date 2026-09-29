@@ -187,7 +187,7 @@ Build a rendering system directly on top of OpenGL.
 - 🟢 Texture system
 - 🟢 Camera
 - 🟢 2D rendering
-- [ ] 3D rendering
+- 🟢 3D rendering
 - [ ] Lighting
 
 Initial rendering progression:
