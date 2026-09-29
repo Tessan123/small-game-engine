@@ -6,12 +6,23 @@ std::array<bool, GLFW_KEY_LAST + 1> Input::previousKeys{};
 std::array<bool, GLFW_MOUSE_BUTTON_LAST + 1> Input::currentMouseButtons{};
 std::array<bool, GLFW_MOUSE_BUTTON_LAST + 1> Input::prevoiusMouseButtons{};
 
+double Input::mouseX = 0.0;
+double Input::mouseY = 0.0;
+
+double Input::previousMouseX = 0.0;
+double Input::previousMouseY = 0.0;
+
 std::array<InputBinding, 7> Input::bindings{};
 
 void Input::Update(GLFWwindow *window)
 {
     previousKeys = currentKeys;
     prevoiusMouseButtons = currentMouseButtons;
+
+    previousMouseX = mouseX;
+    previousMouseY = mouseY;
+
+    glfwGetCursorPos(window, &mouseX, &mouseY);
 
     for (int key = 0; key <= GLFW_KEY_LAST; key++)
     {
@@ -154,4 +165,24 @@ int Input::ToGLFWMouseButton(MouseButton button)
 InputBinding Input::GetBindingForAction(Action action)
 {
     return bindings[static_cast<int>(action)];
+}
+
+double Input::GetMouseX()
+{
+    return mouseX;
+}
+
+double Input::GetMouseY()
+{
+    return mouseY;
+}
+
+double Input::GetMouseDeltaX()
+{
+    return mouseX - previousMouseX;
+}
+
+double Input::GetMouseDeltaY()
+{
+    return mouseY - previousMouseY;
 }

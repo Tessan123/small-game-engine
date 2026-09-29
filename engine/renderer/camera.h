@@ -15,14 +15,20 @@ public:
     void SetTarget(const Vec3 &target);
 
     void Move(const Vec3 &direction, float deltaTime);
+    void Rotate(float yawOffset, float pitchOffset);
 
 private:
     Vec3 position;
     Vec3 target;
     Vec3 up;
 
+    float yaw;
+    float pitch;
+
     float fovRadians;
     float aspectRatio;
     float nearPlane;
     float farPlane;
+
+    void UpdateDirection();
 };

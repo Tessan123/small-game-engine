@@ -51,6 +51,7 @@ Application::Application()
     }
 
     glfwMakeContextCurrent(window);
+    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
     if (!InitializeOpenGLFunctions())
     {
@@ -166,9 +167,17 @@ void Application::Update()
     {
         camera.Move(Vec3(1.0f, 0.0f, 0.0f), deltaTime);
     }
-    if (Input::WasActionPressed(Action::Shoot))
+
+    double mouseDeltaX = Input::GetMouseDeltaX();
+    double mouseDeltaY = Input::GetMouseDeltaY();
+
+    const float sensitivity = 0.1f;
+
+    if (Input::IsActionDown(Action::Shoot))
     {
-        std::cout << "Shoot!" << std::endl;
+        camera.Rotate(
+            static_cast<float>(mouseDeltaX) * sensitivity,
+            static_cast<float>(mouseDeltaY) * sensitivity);
     }
 }
 

@@ -35,7 +35,8 @@ enum class BindingType
     MouseButton
 };
 
-struct InputBinding {
+struct InputBinding
+{
     BindingType type;
     Key key;
     MouseButton mouseButton;
@@ -58,8 +59,14 @@ public:
     static bool WasActionPressed(Action action);
     static bool WasActionReleased(Action action);
 
+    static double GetMouseX();
+    static double GetMouseY();
+
+    static double GetMouseDeltaX();
+    static double GetMouseDeltaY();
+
     static void Bind(Action action, Key key);
-    static void Bind(Action action, MouseButton MouseButton);
+    static void Bind(Action action, MouseButton button);
 
 private:
     static int ToGLFWKey(Key key);
@@ -71,6 +78,11 @@ private:
 
     static std::array<bool, GLFW_MOUSE_BUTTON_LAST + 1> currentMouseButtons;
     static std::array<bool, GLFW_MOUSE_BUTTON_LAST + 1> prevoiusMouseButtons;
+
+    static double mouseX;
+    static double mouseY;
+    static double previousMouseX;
+    static double previousMouseY;
 
     static std::array<InputBinding, 7> bindings;
 };
