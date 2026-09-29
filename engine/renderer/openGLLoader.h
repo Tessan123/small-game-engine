@@ -68,6 +68,8 @@ using GLUniform1iProc = void (*)(GLint, GLint);
 
 using GLUniformMatrix4fvProc = void (*)(GLint, GLsizei, GLboolean, const GLfloat *);
 
+using GLUniform3fProc = void (*)(GLint, GLfloat, GLfloat, GLfloat);
+
 using GLActiveTextureProc = void (*)(GLenum);
 
 extern GLGenBuffersProc glGenBuffers;
@@ -100,6 +102,7 @@ extern GLGetUniformLocationProc glGetUniformLocation;
 extern GLUniform1fProc glUniform1f;
 extern GLUniform1iProc glUniform1i;
 extern GLUniformMatrix4fvProc glUniformMatrix4fv;
+extern GLUniform3fProc glUniform3f;
 
 extern GLActiveTextureProc glActiveTexture;
 

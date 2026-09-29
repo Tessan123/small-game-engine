@@ -1,6 +1,7 @@
 #include "shader.h"
 #include "openGLLoader.h"
 #include "mat4.h"
+#include "vec3.h"
 #include <fstream>
 #include <sstream>
 #include <iostream>
@@ -149,4 +150,16 @@ void Shader::SetMat4(const char *name, const Mat4 &matrix) const
         return;
     }
     glUniformMatrix4fv(location, 1, GL_TRUE, &matrix.m[0][0]);
+}
+
+void Shader::SetVec3(const char *name, const Vec3 &value) const
+{
+    GLint location = glGetUniformLocation(rendererID, name);
+
+    if (location == -1)
+    {
+        std::cerr << "Uniform not found: " << name << std::endl;
+        return;
+    }
+    glUniform3f(location, value.x, value.y, value.z);
 }

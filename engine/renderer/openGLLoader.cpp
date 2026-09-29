@@ -31,6 +31,7 @@ GLGetUniformLocationProc glGetUniformLocation = nullptr;
 GLUniform1fProc glUniform1f = nullptr;
 GLUniform1iProc glUniform1i = nullptr;
 GLUniformMatrix4fvProc glUniformMatrix4fv = nullptr;
+GLUniform3fProc glUniform3f = nullptr;
 
 GLActiveTextureProc glActiveTexture = nullptr;
 
@@ -136,6 +137,10 @@ bool InitializeOpenGLFunctions()
         reinterpret_cast<GLUniformMatrix4fvProc>(
             glfwGetProcAddress("glUniformMatrix4fv"));
 
+    glUniform3f =
+        reinterpret_cast<GLUniform3fProc>(
+            glfwGetProcAddress("glUniform3f"));
+
     glActiveTexture =
         reinterpret_cast<GLActiveTextureProc>(
             glfwGetProcAddress("glActiveTexture"));
@@ -170,7 +175,8 @@ bool InitializeOpenGLFunctions()
         !glUniform1f ||
         !glUniform1i ||
         !glUniformMatrix4fv ||
-        !glActiveTexture)
+        !glActiveTexture ||
+        !glUniform3f)
     {
         std::cerr << "Failed to load OpenGL functions."
                   << std::endl;

@@ -1,6 +1,7 @@
 #pragma once
 
 class Mat4;
+class Vec3;
 class Shader
 {
 public:
@@ -13,6 +14,7 @@ public:
     void SetFloat(const char *name, float value) const;
     void SetInt(const char *name, int value) const;
     void SetMat4(const char *name, const Mat4 &matrix) const;
+    void SetVec3(const char *name, const Vec3 &value) const;
 
 private:
     unsigned int rendererID = 0;

@@ -1,0 +1,36 @@
+#include "directionalLight.h"
+
+DirectionalLight::DirectionalLight()
+    : direction(-1.0f, -1.0f, -1.0f), color(1.0f, 1.0f, 1.0f), intensity(1.0f)
+{
+}
+
+void DirectionalLight::SetDirection(const Vec3 &newDirection)
+{
+    direction = newDirection;
+}
+
+void DirectionalLight::SetColor(const Vec3 &newColor)
+{
+    color = newColor;
+}
+
+void DirectionalLight::SetIntensity(float newIntensity)
+{
+    intensity = newIntensity;
+}
+
+const Vec3 &DirectionalLight::GetDirection() const
+{
+    return direction;
+}
+
+const Vec3 &DirectionalLight::GetColor() const
+{
+    return color;
+}
+
+float DirectionalLight::GetIntensity() const
+{
+    return intensity;
+}

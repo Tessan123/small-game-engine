@@ -4,6 +4,7 @@
 #include "transform.h"
 #include "camera.h"
 #include "camera2D.h"
+#include "directionalLight.h"
 
 class GLFWwindow;
 class VertexArray;
@@ -41,6 +42,7 @@ private:
     float positionY;
 
     Transform transform;
+    DirectionalLight directionalLight;
 
     std::unique_ptr<VertexArray> vertexArray;
     std::unique_ptr<VertexBuffer> vertexBuffer;

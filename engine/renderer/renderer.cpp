@@ -6,6 +6,7 @@
 #include "texture.h"
 #include "sprite.h"
 #include "vec3.h"
+#include "directionalLight.h"
 #include <GLFW/glfw3.h>
 
 namespace
@@ -29,13 +30,24 @@ void Renderer::Present()
     glfwSwapBuffers(window);
 }
 
-void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model, const Mat4 &view, const Mat4 &projection, const Texture &texture)
+void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model, const Mat4 &view, const Mat4 &projection, const Texture &texture, const DirectionalLight &light)
 {
     shader.Bind();
-    // shader.SetFloat("red", 1.0f);
     shader.SetMat4("u_Model", model);
     shader.SetMat4("u_View", view);
     shader.SetMat4("u_Projection", projection);
+
+    shader.SetVec3(
+        "u_LightDirection",
+        light.GetDirection());
+
+    shader.SetVec3(
+        "u_LightColor",
+        light.GetColor());
+
+    shader.SetFloat(
+        "u_LightIntensity",
+        light.GetIntensity());
 
     texture.Bind(0);
     shader.SetInt("u_Texture", 0);
