@@ -10,16 +10,13 @@ public:
     void SetDirection(const Vec3 &direction);
     void SetColor(const Vec3 &color);
     void SetIntensity(float intensity);
-    void SetSpecularIntensity(float intensity);
 
     const Vec3 &GetDirection() const;
     const Vec3 &GetColor() const;
     float GetIntensity() const;
-    float GetSpecularIntensity() const;
 
 private:
     Vec3 direction;
     Vec3 color;
     float intensity;
-    float specularIntensity;
 };

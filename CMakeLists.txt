@@ -41,6 +41,7 @@ add_executable(MyEngine
     engine/renderer/sprite.cpp
     engine/renderer/camera2D.cpp
     engine/renderer/directionalLight.cpp
+    engine/renderer/material.cpp
 )
 
 target_include_directories(MyEngine PRIVATE

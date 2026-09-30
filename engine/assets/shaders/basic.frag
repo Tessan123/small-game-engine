@@ -11,7 +11,11 @@ uniform sampler2D u_Texture;
 uniform vec3 u_LightDirection;
 uniform vec3 u_LightColor;
 uniform float u_LightIntensity;
+
 uniform float u_SpecularIntensity;
+uniform float u_Shininess;
+
+uniform vec3 u_Color;
 
 uniform vec3 u_CameraPosition;
 
@@ -44,13 +48,14 @@ void main()
     float specular =
     pow(
         max(dot(viewDirection, reflectionDirection), 0.0),
-        32.0
+        u_Shininess
     ) * u_SpecularIntensity;
 
     // Combine lighting
     vec3 lighting = vec3(ambient) + vec3(brightness * u_LightIntensity) + vec3(specular);
 
     color =
-        textureColor *
-        vec4(lighting * u_LightColor, 1.0);
+    textureColor *
+    vec4(u_Color, 1.0) *
+    vec4(lighting * u_LightColor, 1.0);
 }

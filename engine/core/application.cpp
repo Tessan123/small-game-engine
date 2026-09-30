@@ -10,6 +10,7 @@
 #include "camera.h"
 #include "sprite.h"
 #include "vertexBufferLayout.h"
+#include "material.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <memory>
@@ -164,6 +165,8 @@ Application::Application()
         "Engine/assets/shaders/sprite.vert",
         "Engine/assets/shaders/sprite.frag");
 
+    material = std::make_unique<Material>(shader.get(), texture.get());
+
     const GLubyte *version = glGetString(GL_VERSION);
 
     if (version)
@@ -183,7 +186,10 @@ void Application::run()
     std::cout << "Starting game loop..." << std::endl;
     float lastTime = glfwGetTime();
 
-    directionalLight.SetSpecularIntensity(2.0f);
+    material->SetSpecularIntensity(1.0f);
+    material->SetShininess(32.0f);
+    material->SetColor(
+        Vec3(1.0f, 1.0f, 1.0f));
 
     while (running)
     {
@@ -299,7 +305,7 @@ void Application::Render()
     // Mat4 spriteView = camera2D.GetViewMatrix();
     // Mat4 spriteProjection = camera2D.GetProjectionMatrix();
 
-    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, view, projection, *texture, directionalLight, camera);
+    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *material, model, view, projection, directionalLight, camera);
 
     // Renderer::DrawSprite(*sprite, *spriteShader, *vertexArray, *indexBuffer, spriteView, spriteProjection);
 

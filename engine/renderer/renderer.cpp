@@ -8,6 +8,7 @@
 #include "vec3.h"
 #include "directionalLight.h"
 #include "camera.h"
+#include "material.h"
 #include <GLFW/glfw3.h>
 
 namespace
@@ -31,35 +32,44 @@ void Renderer::Present()
     glfwSwapBuffers(window);
 }
 
-void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Shader &shader, const Mat4 &model, const Mat4 &view, const Mat4 &projection, const Texture &texture, const DirectionalLight &light, const Camera &camera)
+void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Material &material, const Mat4 &model, const Mat4 &view, const Mat4 &projection, const DirectionalLight &light, const Camera &camera)
 {
-    shader.Bind();
-    shader.SetMat4("u_Model", model);
-    shader.SetMat4("u_View", view);
-    shader.SetMat4("u_Projection", projection);
+    Shader *shader = material.GetShader();
+    Texture *texture = material.GetTexture();
+    shader->Bind();
+    shader->SetMat4("u_Model", model);
+    shader->SetMat4("u_View", view);
+    shader->SetMat4("u_Projection", projection);
 
-    shader.SetVec3(
+    shader->SetVec3(
         "u_LightDirection",
         light.GetDirection());
 
-    shader.SetVec3(
+    shader->SetVec3(
         "u_LightColor",
         light.GetColor());
 
-    shader.SetFloat(
+    shader->SetFloat(
         "u_LightIntensity",
         light.GetIntensity());
 
-    shader.SetFloat(
+    shader->SetFloat(
         "u_SpecularIntensity",
-        light.GetSpecularIntensity());
+        material.GetSpecularIntensity());
 
-    shader.SetVec3(
+    shader->SetFloat(
+        "u_Shininess",
+        material.GetShininess());
+
+    shader->SetVec3(
         "u_CameraPosition",
         camera.GetPosition());
+    shader->SetVec3(
+        "u_Color",
+        material.GetColor());
 
-    texture.Bind(0);
-    shader.SetInt("u_Texture", 0);
+    texture->Bind(0);
+    shader->SetInt("u_Texture", 0);
 
     vertexArray.Bind();
 
@@ -71,8 +81,8 @@ void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &in
 
     vertexArray.Unbind();
 
-    texture.Unbind();
-    shader.Unbind();
+    texture->Unbind();
+    shader->Unbind();
 }
 
 void Renderer::DrawSprite(

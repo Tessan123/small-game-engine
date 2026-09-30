@@ -10,15 +10,20 @@ uniform mat4 u_Projection;
 
 out vec2 v_TexCoord;
 out vec3 v_Normal;
+out vec3 v_WorldPosition;
 
 void main()
 {
-    gl_Position =
-        u_Projection *
-        u_View *
+    vec4 worldPosition =
         u_Model *
         vec4(a_Position, 1.0);
 
+    gl_Position =
+        u_Projection *
+        u_View *
+        worldPosition;
+
     v_TexCoord = a_TexCoord;
     v_Normal = a_Normal;
+    v_WorldPosition = worldPosition.xyz;
 }

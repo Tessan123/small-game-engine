@@ -13,6 +13,7 @@ class IndexBuffer;
 class Shader;
 class Texture;
 class Sprite;
+class Material;
 
 class Application
 {
@@ -54,4 +55,5 @@ private:
     std::unique_ptr<Texture> texture;
     std::unique_ptr<Shader> spriteShader;
     std::unique_ptr<Sprite> sprite;
+    std::unique_ptr<Material> material;
 };
