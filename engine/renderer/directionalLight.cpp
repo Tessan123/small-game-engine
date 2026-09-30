@@ -1,7 +1,7 @@
 #include "directionalLight.h"
 
 DirectionalLight::DirectionalLight()
-    : direction(-1.0f, -1.0f, -1.0f), color(1.0f, 1.0f, 1.0f), intensity(1.0f)
+    : direction(-1.0f, -1.0f, -1.0f), color(1.0f, 1.0f, 1.0f), intensity(1.0f), specularIntensity(1.0f)
 {
 }
 
@@ -20,6 +20,11 @@ void DirectionalLight::SetIntensity(float newIntensity)
     intensity = newIntensity;
 }
 
+void DirectionalLight::SetSpecularIntensity(float newIntensity)
+{
+    specularIntensity = newIntensity;
+}
+
 const Vec3 &DirectionalLight::GetDirection() const
 {
     return direction;
@@ -33,4 +38,9 @@ const Vec3 &DirectionalLight::GetColor() const
 float DirectionalLight::GetIntensity() const
 {
     return intensity;
+}
+
+float DirectionalLight::GetSpecularIntensity() const
+{
+    return specularIntensity;
 }

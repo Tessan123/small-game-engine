@@ -77,3 +77,8 @@ Vec3 Camera::GetRight() const
 {
     return up.Cross(GetForward()).Normalize();
 }
+
+const Vec3 &Camera::GetPosition() const
+{
+    return position;
+}

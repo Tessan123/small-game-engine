@@ -17,3 +17,13 @@ Mat4 Transform::GetModelMatrix() const
 
     return translation * rotationX * rotationY * rotationZ * scaling;
 }
+
+void Transform::SetRotation(const Vec3 &newRotation)
+{
+    rotation = newRotation;
+}
+
+const Vec3 &Transform::GetRotation() const
+{
+    return rotation;
+}

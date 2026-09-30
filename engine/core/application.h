@@ -41,6 +41,9 @@ private:
     float positionX;
     float positionY;
 
+    float cubeRotX = 0.0f; // tillfällig
+    float cubeRotY = 0.0f; // tillfällig
+
     Transform transform;
     DirectionalLight directionalLight;
 

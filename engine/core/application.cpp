@@ -183,6 +183,8 @@ void Application::run()
     std::cout << "Starting game loop..." << std::endl;
     float lastTime = glfwGetTime();
 
+    directionalLight.SetSpecularIntensity(2.0f);
+
     while (running)
     {
         float currentTime = glfwGetTime();
@@ -228,6 +230,15 @@ void Application::Update()
     Vec2 spriteMovement(0.0f, 0.0f);
     Vec2 cameraMovement(0.0f, 0.0f);
     double scroll = Input::GetScrollDelta();
+
+    cubeRotX += 0.5f * deltaTime;
+    cubeRotY += 1.0f * deltaTime;
+
+    transform.SetRotation(
+        Vec3(
+            cubeRotX,
+            cubeRotY,
+            0.0f));
 
     if (scroll != 0.0)
     {
@@ -288,7 +299,7 @@ void Application::Render()
     // Mat4 spriteView = camera2D.GetViewMatrix();
     // Mat4 spriteProjection = camera2D.GetProjectionMatrix();
 
-    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, view, projection, *texture, directionalLight);
+    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *shader, model, view, projection, *texture, directionalLight, camera);
 
     // Renderer::DrawSprite(*sprite, *spriteShader, *vertexArray, *indexBuffer, spriteView, spriteProjection);
 
