@@ -5,6 +5,7 @@
 #include "camera.h"
 #include "camera2D.h"
 #include "directionalLight.h"
+#include "pointLight.h"
 
 class GLFWwindow;
 class VertexArray;
@@ -47,6 +48,7 @@ private:
 
     Transform transform;
     DirectionalLight directionalLight;
+    PointLight pointLight;
 
     std::unique_ptr<VertexArray> vertexArray;
     std::unique_ptr<VertexBuffer> vertexBuffer;

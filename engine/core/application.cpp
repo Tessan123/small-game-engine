@@ -191,6 +191,10 @@ void Application::run()
     material->SetColor(
         Vec3(1.0f, 1.0f, 1.0f));
 
+    pointLight.SetPosition(Vec3(2.0f, 0.0f, 0.0f));
+    pointLight.SetColor(Vec3(1.0f, 0.0f, 0.0f));
+    pointLight.SetIntensity(2.0f);
+
     while (running)
     {
         float currentTime = glfwGetTime();
@@ -305,7 +309,7 @@ void Application::Render()
     // Mat4 spriteView = camera2D.GetViewMatrix();
     // Mat4 spriteProjection = camera2D.GetProjectionMatrix();
 
-    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *material, model, view, projection, directionalLight, camera);
+    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *material, model, view, projection, directionalLight, pointLight, camera);
 
     // Renderer::DrawSprite(*sprite, *spriteShader, *vertexArray, *indexBuffer, spriteView, spriteProjection);
 

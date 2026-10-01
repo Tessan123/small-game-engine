@@ -9,6 +9,7 @@
 #include "directionalLight.h"
 #include "camera.h"
 #include "material.h"
+#include "pointLight.h"
 #include <GLFW/glfw3.h>
 
 namespace
@@ -32,7 +33,7 @@ void Renderer::Present()
     glfwSwapBuffers(window);
 }
 
-void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Material &material, const Mat4 &model, const Mat4 &view, const Mat4 &projection, const DirectionalLight &light, const Camera &camera)
+void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Material &material, const Mat4 &model, const Mat4 &view, const Mat4 &projection, const DirectionalLight &light, const PointLight &pointLight, const Camera &camera)
 {
     Shader *shader = material.GetShader();
     Texture *texture = material.GetTexture();
@@ -67,6 +68,34 @@ void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &in
     shader->SetVec3(
         "u_Color",
         material.GetColor());
+
+    shader->SetFloat(
+        "u_AmbientIntensity",
+        light.GetAmbientIntensity());
+
+    shader->SetVec3(
+        "u_PointLightPosition",
+        pointLight.GetPosition());
+
+    shader->SetVec3(
+        "u_PointLightColor",
+        pointLight.GetColor());
+
+    shader->SetFloat(
+        "u_PointLightIntensity",
+        pointLight.GetIntensity());
+
+    shader->SetFloat(
+        "u_PointLightConstant",
+        pointLight.GetConstant());
+
+    shader->SetFloat(
+        "u_PointLightLinear",
+        pointLight.GetLinear());
+
+    shader->SetFloat(
+        "u_PointLightQuadratic",
+        pointLight.GetQuadratic());
 
     texture->Bind(0);
     shader->SetInt("u_Texture", 0);
