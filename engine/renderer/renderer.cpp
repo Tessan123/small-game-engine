@@ -6,10 +6,11 @@
 #include "texture.h"
 #include "sprite.h"
 #include "vec3.h"
-#include "directionalLight.h"
 #include "camera.h"
 #include "material.h"
-#include "pointLight.h"
+#include "sceneLights.h"
+#include "renderData.h"
+#include "mesh.h"
 #include <GLFW/glfw3.h>
 
 namespace
@@ -33,8 +34,15 @@ void Renderer::Present()
     glfwSwapBuffers(window);
 }
 
-void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &indexBuffer, const Material &material, const Mat4 &model, const Mat4 &view, const Mat4 &projection, const DirectionalLight &light, const PointLight &pointLight, const Camera &camera)
+void Renderer::DrawIndexed(const Mesh &mesh, const Material &material, const RenderData &renderData)
 {
+    const VertexArray &vertexArray = mesh.GetVertexArray();
+    const IndexBuffer &indexBuffer = mesh.GetIndexBuffer();
+    const Mat4 &model = renderData.model;
+    const Camera &camera = renderData.camera;
+    const SceneLights &lights = renderData.lights;
+    Mat4 view = camera.GetViewMatrix();
+    Mat4 projection = camera.GetProjectionMatrix();
     Shader *shader = material.GetShader();
     Texture *texture = material.GetTexture();
     shader->Bind();
@@ -44,15 +52,15 @@ void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &in
 
     shader->SetVec3(
         "u_LightDirection",
-        light.GetDirection());
+        lights.directional.GetDirection());
 
     shader->SetVec3(
         "u_LightColor",
-        light.GetColor());
+        lights.directional.GetColor());
 
     shader->SetFloat(
         "u_LightIntensity",
-        light.GetIntensity());
+        lights.directional.GetIntensity());
 
     shader->SetFloat(
         "u_SpecularIntensity",
@@ -71,31 +79,67 @@ void Renderer::DrawIndexed(const VertexArray &vertexArray, const IndexBuffer &in
 
     shader->SetFloat(
         "u_AmbientIntensity",
-        light.GetAmbientIntensity());
+        lights.directional.GetAmbientIntensity());
 
     shader->SetVec3(
         "u_PointLightPosition",
-        pointLight.GetPosition());
+        lights.point.GetPosition());
 
     shader->SetVec3(
         "u_PointLightColor",
-        pointLight.GetColor());
+        lights.point.GetColor());
 
     shader->SetFloat(
         "u_PointLightIntensity",
-        pointLight.GetIntensity());
+        lights.point.GetIntensity());
 
     shader->SetFloat(
         "u_PointLightConstant",
-        pointLight.GetConstant());
+        lights.point.GetConstant());
 
     shader->SetFloat(
         "u_PointLightLinear",
-        pointLight.GetLinear());
+        lights.point.GetLinear());
 
     shader->SetFloat(
         "u_PointLightQuadratic",
-        pointLight.GetQuadratic());
+        lights.point.GetQuadratic());
+
+    shader->SetVec3(
+        "u_SpotLightPosition",
+        lights.spot.GetPosition());
+
+    shader->SetVec3(
+        "u_SpotLightDirection",
+        lights.spot.GetDirection());
+
+    shader->SetVec3(
+        "u_SpotLightColor",
+        lights.spot.GetColor());
+
+    shader->SetFloat(
+        "u_SpotLightIntensity",
+        lights.spot.GetIntensity());
+
+    shader->SetFloat(
+        "u_SpotLightConstant",
+        lights.spot.GetConstant());
+
+    shader->SetFloat(
+        "u_SpotLightLinear",
+        lights.spot.GetLinear());
+
+    shader->SetFloat(
+        "u_SpotLightQuadratic",
+        lights.spot.GetQuadratic());
+
+    shader->SetFloat(
+        "u_SpotLightInnerCutoff",
+        lights.spot.GetInnerCutoff());
+
+    shader->SetFloat(
+        "u_SpotLightOuterCutoff",
+        lights.spot.GetOuterCutoff());
 
     texture->Bind(0);
     shader->SetInt("u_Texture", 0);

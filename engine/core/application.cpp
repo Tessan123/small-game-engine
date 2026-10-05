@@ -2,15 +2,13 @@
 #include "input.h"
 #include "renderer.h"
 #include "openGLLoader.h"
-#include "vertexArray.h"
-#include "vertexBuffer.h"
-#include "indexBuffer.h"
 #include "shader.h"
 #include "texture.h"
 #include "camera.h"
 #include "sprite.h"
-#include "vertexBufferLayout.h"
 #include "material.h"
+#include "renderData.h"
+#include "mesh.h"
 #include <GLFW/glfw3.h>
 #include <iostream>
 #include <memory>
@@ -69,93 +67,13 @@ Application::Application()
 
     Renderer::Initialize(window);
 
-    float vertices[] =
-        {
-            // Front (+Z)
-            -0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,
-            0.5f, -0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 0.0f,
-            0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 1.0f, 1.0f,
-            -0.5f, 0.5f, 0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f,
-
-            // Back (-Z)
-            -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 0.0f,
-            -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 1.0f, 1.0f,
-            0.5f, 0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 1.0f,
-            0.5f, -0.5f, -0.5f, 0.0f, 0.0f, -1.0f, 0.0f, 0.0f,
-
-            // Left (-X)
-            -0.5f, -0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-            -0.5f, -0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-            -0.5f, 0.5f, 0.5f, -1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-            -0.5f, 0.5f, -0.5f, -1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-
-            // Right (+X)
-            0.5f, -0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
-            0.5f, 0.5f, -0.5f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f,
-            0.5f, 0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 1.0f,
-            0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f,
-
-            // Top (+Y)
-            -0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f,
-            -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 0.0f, 1.0f,
-            0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 1.0f,
-            0.5f, 0.5f, -0.5f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,
-
-            // Bottom (-Y)
-            -0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 1.0f,
-            0.5f, -0.5f, -0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 1.0f,
-            0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-            -0.5f, -0.5f, 0.5f, 0.0f, -1.0f, 0.0f, 1.0f, 0.0f};
-
-    unsigned int indices[] =
-        {
-            // Front
-            0, 1, 2,
-            2, 3, 0,
-
-            // Back
-            4, 5, 6,
-            6, 7, 4,
-
-            // Left
-            8, 9, 10,
-            10, 11, 8,
-
-            // Right
-            12, 13, 14,
-            14, 15, 12,
-
-            // Top
-            16, 17, 18,
-            18, 19, 16,
-
-            // Bottom
-            20, 21, 22,
-            22, 23, 20};
-
     texture = std::make_unique<Texture>("engine/assets/test.jpg");
 
     sprite = std::make_unique<Sprite>(texture.get());
     sprite->SetPosition(Vec2(400.0f, 300.0f));
     sprite->SetSize(Vec2(200.0f, 200.0f));
 
-    vertexArray = std::make_unique<VertexArray>();
-
-    vertexArray->Bind();
-
-    vertexBuffer = std::make_unique<VertexBuffer>(vertices, sizeof(vertices));
-
-    VertexBufferLayout layout;
-
-    layout.Push(ShaderDataType::Float3); // position
-    layout.Push(ShaderDataType::Float3); // normal
-    layout.Push(ShaderDataType::Float2); // texture coordinates
-
-    vertexArray->AddVertexBuffer(layout);
-
-    indexBuffer = std::make_unique<IndexBuffer>(indices, 36);
-
-    vertexArray->Unbind();
+    mesh = Mesh::CreateCube();
 
     shader = std::make_unique<Shader>(
         "Engine/assets/shaders/basic.vert",
@@ -191,9 +109,19 @@ void Application::run()
     material->SetColor(
         Vec3(1.0f, 1.0f, 1.0f));
 
-    pointLight.SetPosition(Vec3(2.0f, 0.0f, 0.0f));
-    pointLight.SetColor(Vec3(1.0f, 0.0f, 0.0f));
-    pointLight.SetIntensity(2.0f);
+    lights.point.SetPosition(Vec3(2.0f, 0.0f, 0.0f));
+    lights.point.SetColor(Vec3(0.0f, 0.0f, 0.0f));
+    lights.point.SetIntensity(2.0f);
+
+    lights.spot.SetPosition(Vec3(0.0f, 0.0f, 0.0f));
+
+    lights.spot.SetDirection(
+        Vec3(1.0f, 0.0f, -1.0f));
+
+    lights.spot.SetColor(
+        Vec3(0.0f, 1.0f, 0.0f));
+
+    lights.spot.SetIntensity(5.0f);
 
     while (running)
     {
@@ -213,12 +141,10 @@ void Application::run()
             frameCount = 0;
             fpsTimer = 0.0f;
         }
-
         ProcessInput();
         Update();
         Render();
     }
-    std::cout << "Game loop ended." << std::endl;
 }
 
 void Application::ProcessInput()
@@ -302,14 +228,15 @@ void Application::Render()
 {
     Renderer::Clear();
 
-    Mat4 model = transform.GetModelMatrix();
-    Mat4 view = camera.GetViewMatrix();
-    Mat4 projection = camera.GetProjectionMatrix();
+    RenderData renderData{
+        transform.GetModelMatrix(),
+        camera,
+        lights};
 
     // Mat4 spriteView = camera2D.GetViewMatrix();
     // Mat4 spriteProjection = camera2D.GetProjectionMatrix();
 
-    Renderer::DrawIndexed(*vertexArray, *indexBuffer, *material, model, view, projection, directionalLight, pointLight, camera);
+    Renderer::DrawIndexed(*mesh, *material, renderData);
 
     // Renderer::DrawSprite(*sprite, *spriteShader, *vertexArray, *indexBuffer, spriteView, spriteProjection);
 

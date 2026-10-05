@@ -6,6 +6,8 @@
 #include "camera2D.h"
 #include "directionalLight.h"
 #include "pointLight.h"
+#include "spotLight.h"
+#include "sceneLights.h"
 
 class GLFWwindow;
 class VertexArray;
@@ -15,6 +17,7 @@ class Shader;
 class Texture;
 class Sprite;
 class Material;
+class Mesh;
 
 class Application
 {
@@ -49,13 +52,13 @@ private:
     Transform transform;
     DirectionalLight directionalLight;
     PointLight pointLight;
+    SpotLight spotLight;
+    SceneLights lights;
 
-    std::unique_ptr<VertexArray> vertexArray;
-    std::unique_ptr<VertexBuffer> vertexBuffer;
-    std::unique_ptr<IndexBuffer> indexBuffer;
     std::unique_ptr<Shader> shader;
     std::unique_ptr<Texture> texture;
     std::unique_ptr<Shader> spriteShader;
     std::unique_ptr<Sprite> sprite;
     std::unique_ptr<Material> material;
+    std::unique_ptr<Mesh> mesh;
 };

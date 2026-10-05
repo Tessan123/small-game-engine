@@ -20,6 +20,18 @@ uniform float u_PointLightConstant;
 uniform float u_PointLightLinear;
 uniform float u_PointLightQuadratic;
 
+uniform vec3 u_SpotLightPosition;
+uniform vec3 u_SpotLightDirection;
+uniform vec3 u_SpotLightColor;
+uniform float u_SpotLightIntensity;
+
+uniform float u_SpotLightConstant;
+uniform float u_SpotLightLinear;
+uniform float u_SpotLightQuadratic;
+
+uniform float u_SpotLightInnerCutoff;
+uniform float u_SpotLightOuterCutoff;
+
 uniform float u_SpecularIntensity;
 uniform float u_Shininess;
 
@@ -94,6 +106,69 @@ vec3 CalculatePointLight(
        u_PointLightColor;
 }
 
+vec3 CalculateSpotLight(
+    vec3 normal,
+    vec3 worldPosition,
+    vec3 viewDirection)
+{
+    vec3 toLight =
+        u_SpotLightPosition - worldPosition;
+
+    float distance =
+        length(toLight);
+
+    vec3 lightDirection =
+        normalize(toLight);
+
+    float brightness =
+        max(dot(normal, lightDirection), 0.0);
+
+    vec3 reflectionDirection =
+        reflect(-lightDirection, normal);
+
+    float specular =
+        pow(
+            max(dot(viewDirection, reflectionDirection), 0.0),
+            u_Shininess
+        ) * u_SpecularIntensity;
+
+    float attenuation =
+        1.0 /
+        (
+            u_SpotLightConstant +
+            u_SpotLightLinear * distance +
+            u_SpotLightQuadratic * distance * distance
+        );
+
+    float theta =
+        dot(
+            normalize(-u_SpotLightDirection),
+            lightDirection
+        );
+
+    float epsilon =
+        u_SpotLightInnerCutoff -
+        u_SpotLightOuterCutoff;
+
+    float intensity =
+        clamp(
+            (theta - u_SpotLightOuterCutoff) /
+            epsilon,
+            0.0,
+            1.0
+        );
+
+    vec3 lighting =
+        vec3(brightness * u_SpotLightIntensity) +
+        vec3(specular);
+
+    return
+        lighting *
+        attenuation *
+        intensity *
+        u_SpotLightColor;
+}
+
 void main()
 {
     vec4 textureColor =
@@ -121,12 +196,20 @@ void main()
             viewDirection
         );
 
+    vec3 spotLighting =
+        CalculateSpotLight(
+            normal,
+            v_WorldPosition,
+            viewDirection
+        );
+
     vec3 lighting =
         directionalLighting +
-        pointLighting;
+        pointLighting +
+        spotLighting;
 
     color =
-    textureColor *
-    vec4(u_Color, 1.0) *
-    vec4(lighting, 1.0);
+        textureColor *
+        vec4(u_Color, 1.0) *
+        vec4(lighting, 1.0);
 }

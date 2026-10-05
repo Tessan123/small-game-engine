@@ -41,8 +41,11 @@ add_executable(MyEngine
     engine/renderer/sprite.cpp
     engine/renderer/camera2D.cpp
     engine/renderer/directionalLight.cpp
-    engine/renderer/material.cpp
+    engine/scene/material.cpp
     engine/renderer/pointLight.cpp
+    engine/renderer/spotLight.cpp
+    engine/scene/mesh.cpp
+    engine/scene/entity.cpp
 )
 
 target_include_directories(MyEngine PRIVATE
@@ -51,6 +54,7 @@ target_include_directories(MyEngine PRIVATE
     Engine/Math
     Engine/renderer
     Engine/thirdParty/stb
+    Engine/scene
 )
 
 find_package(glfw3 REQUIRED)
